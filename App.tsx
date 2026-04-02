@@ -1,10 +1,10 @@
-import React, { useState, useMemo, useRef } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
     View, Text, TouchableOpacity, ScrollView,
-    StatusBar, Image, Alert, TextInput, Modal,
+    StatusBar, Image, Alert, TextInput, Modal, StyleSheet,
 } from 'react-native';
 import Slider from '@react-native-community/slider';
 
@@ -16,6 +16,9 @@ import { s, m } from './styles/sleep.styles';
 import { SOUND_COLORS, MIX_IMAGES } from './styles/theme';
 
 const Tab = createBottomTabNavigator();
+
+// Sabit değerler
+const DEFAULT_VOLUME = 0.7;
 
 // ── SaveMixModal ──────────────────────────────────────────────────────────────
 function SaveMixModal({
@@ -39,7 +42,8 @@ function SaveMixModal({
                     <Text style={m.sub}>Name your current mix</Text>
                     <TextInput
                         style={m.input}
-                        placeholder="e.g. Rainy Night"                        placeholderTextColor="#45484f"
+                        placeholder="e.g. Rainy Night"
+                        placeholderTextColor="#45484f"
                         value={name}
                         onChangeText={setName}
                         autoFocus
@@ -73,6 +77,16 @@ function SleepScreen() {
     const [remaining, setRemaining] = useState(0);
     const fadeInterval = useRef<ReturnType<typeof setInterval> | null>(null);
 
+    // Memory leak fix
+    useEffect(() => {
+        return () => {
+            if (fadeInterval.current) {
+                clearInterval(fadeInterval.current);
+                fadeInterval.current = null;
+            }
+        };
+    }, []);
+
     const activeMix = useMemo(
         () => savedMixes.find((mx) => mx.id === activeMixId) ?? null,
         [savedMixes, activeMixId]
@@ -84,8 +98,8 @@ function SleepScreen() {
         const savSounds = [...activeMix.sounds.map((s) => s.id)].sort().join(',');
         if (curSounds !== savSounds) return true;
         return activeSounds.some((id) => {
-            const cur = Math.round((volumes[id] ?? 0.7) * 100);
-            const sav = Math.round((activeMix.sounds.find((s) => s.id === id)?.volume ?? 0.7) * 100);
+            const cur = Math.round((volumes[id] ?? DEFAULT_VOLUME) * 100);
+            const sav = Math.round((activeMix.sounds.find((s) => s.id === id)?.volume ?? DEFAULT_VOLUME) * 100);
             return cur !== sav;
         });
     }, [activeSounds, volumes, activeMix]);
@@ -121,15 +135,19 @@ function SleepScreen() {
 
         setRemaining(totalSeconds);
         setTimerActive(true);
+
         if (fadeInterval.current) clearInterval(fadeInterval.current);
 
         fadeInterval.current = setInterval(() => {
             elapsed += 1;
             const factor = 1 - elapsed / totalSeconds;
+
             soundsToFade.forEach(id => {
-                setVolume(id, Math.max(0, (startVolumes[id] ?? 0.7) * factor));
+                setVolume(id, Math.max(0, (startVolumes[id] ?? DEFAULT_VOLUME) * factor));
             });
+
             setRemaining(totalSeconds - elapsed);
+
             if (elapsed >= totalSeconds) {
                 clearInterval(fadeInterval.current!);
                 fadeInterval.current = null;
@@ -151,7 +169,6 @@ function SleepScreen() {
         <View style={s.container}>
             <StatusBar barStyle="light-content" />
 
-            {/* Top Bar */}
             <View style={s.topBar}>
                 <View style={s.topBarLeft}>
                     <Text style={s.topBarIcon}>🌙</Text>
@@ -162,9 +179,11 @@ function SleepScreen() {
                 </TouchableOpacity>
             </View>
 
-            <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{ paddingBottom: 56 }}>
-
-                {/* ── SAVED MIXES ─────────────────────────────────────────────── */}
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{ paddingBottom: 40 }}
+            >
+                {/* SAVED MIXES */}
                 <View style={s.section}>
                     <Text style={s.sectionLabel}>SAVED MIXES</Text>
                     <ScrollView
@@ -199,14 +218,15 @@ function SleepScreen() {
                                         <>
                                             <Image
                                                 source={{ uri: MIX_IMAGES[mix.id] }}
-                                                style={[{ ...require('react-native').StyleSheet.absoluteFillObject }, { opacity: isActive ? 0.6 : 0.25 }]}
+                                                style={[StyleSheet.absoluteFill, { opacity: isActive ? 0.6 : 0.25 }]}
                                                 resizeMode="cover"
                                             />
                                             <View style={s.mixCardOverlay} />
                                         </>
                                     ) : (
-                                        <View style={[{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }, { backgroundColor: accent + '20', borderRadius: 22 }]} />
+                                        <View style={[StyleSheet.absoluteFill, { backgroundColor: accent + '20', borderRadius: 22 }]} />
                                     )}
+
                                     {isActive && (
                                         <View style={s.mixCheck}>
                                             <Text style={{ color: '#98a9ff', fontSize: 12 }}>✓</Text>
@@ -229,7 +249,7 @@ function SleepScreen() {
                     </ScrollView>
                 </View>
 
-                {/* ── SOUNDS + INLINE MIXER ───────────────────────────────────── */}
+                {/* SOUNDS */}
                 <View style={s.section}>
                     <View style={s.sectionHeader}>
                         <Text style={s.sectionLabel}>SOUNDS</Text>
@@ -243,7 +263,7 @@ function SleepScreen() {
                         {SOUNDS.map((sound) => {
                             const isActive = activeSounds.includes(sound.id);
                             const accent = SOUND_COLORS[sound.id] ?? '#98a9ff';
-                            const vol = volumes[sound.id] ?? 0.7;
+                            const vol = volumes[sound.id] ?? DEFAULT_VOLUME;
 
                             if (isActive) {
                                 return (
@@ -302,12 +322,9 @@ function SleepScreen() {
                             );
                         })}
                     </View>
-
-                    {/* Save / Update butonları */}
-
                 </View>
 
-                {/* ── SLEEP TIMER ─────────────────────────────────────────────── */}
+                {/* SLEEP TIMER */}
                 <View style={s.section}>
                     <Text style={s.sectionLabel}>SLEEP TIMER</Text>
                     <View style={s.timerRow}>
@@ -338,30 +355,32 @@ function SleepScreen() {
                     {timerActive && <Text style={s.fadeNote}>AUTOMATIC FADE-OUT ENABLED</Text>}
                 </View>
 
-            </ScrollView>
-            {activeSounds.length >= 2 && (
-                <View style={{ marginTop: 16 }}>
-                    {activeMix ? (
-                        hasChanges && (
+                {/* SAVE / UPDATE BUTONLARI */}
+                {activeSounds.length >= 2 && (
+                    <View style={{ marginTop: 16, marginBottom: 20 }}>
+                        {activeMix ? (
+                            hasChanges && (
+                                <TouchableOpacity
+                                    style={s.updateBtn}
+                                    onPress={() => updateMix(activeMix.id)}
+                                    activeOpacity={0.8}
+                                >
+                                    <Text style={s.updateBtnText}> Update "{activeMix.name}"</Text>
+                                </TouchableOpacity>
+                            )
+                        ) : (
                             <TouchableOpacity
-                                style={s.updateBtn}
-                                onPress={() => updateMix(activeMix.id)}
+                                style={s.saveNewBtn}
+                                onPress={() => setSaveModalVisible(true)}
                                 activeOpacity={0.8}
                             >
-                                <Text style={s.updateBtnText}> Update "{activeMix.name}"</Text>
+                                <Text style={s.saveNewBtnText}>+ Add new mix</Text>
                             </TouchableOpacity>
-                        )
-                    ) : (
-                        <TouchableOpacity
-                            style={s.saveNewBtn}
-                            onPress={() => setSaveModalVisible(true)}
-                            activeOpacity={0.8}
-                        >
-                            <Text style={s.saveNewBtnText}>+ Add new mix</Text>
-                        </TouchableOpacity>
-                    )}
-                </View>
-            )}
+                        )}
+                    </View>
+                )}
+            </ScrollView>
+
             <SaveMixModal
                 visible={saveModalVisible}
                 onClose={() => setSaveModalVisible(false)}
