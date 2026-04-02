@@ -35,12 +35,11 @@ function SaveMixModal({
         <Modal visible={visible} transparent animationType="slide" onRequestClose={onClose}>
             <View style={m.overlay}>
                 <View style={m.sheet}>
-                    <Text style={m.title}>Karışımı Kaydet</Text>
-                    <Text style={m.sub}>Mevcut karışımına bir isim ver</Text>
+                    <Text style={m.title}>Save new mix</Text>
+                    <Text style={m.sub}>Name your current mix</Text>
                     <TextInput
                         style={m.input}
-                        placeholder="ör. Yağmurlu Gece"
-                        placeholderTextColor="#45484f"
+                        placeholder="e.g. Rainy Night"                        placeholderTextColor="#45484f"
                         value={name}
                         onChangeText={setName}
                         autoFocus
@@ -230,7 +229,7 @@ function SleepScreen() {
                     </ScrollView>
                 </View>
 
-                {/* ── SOUNDS ──────────────────────────────────────────────────── */}
+                {/* ── SOUNDS + INLINE MIXER ───────────────────────────────────── */}
                 <View style={s.section}>
                     <View style={s.sectionHeader}>
                         <Text style={s.sectionLabel}>SOUNDS</Text>
@@ -240,96 +239,73 @@ function SleepScreen() {
                             </TouchableOpacity>
                         )}
                     </View>
-                    <View style={s.soundGrid}>
+                    <View style={s.soundList}>
                         {SOUNDS.map((sound) => {
                             const isActive = activeSounds.includes(sound.id);
                             const accent = SOUND_COLORS[sound.id] ?? '#98a9ff';
+                            const vol = volumes[sound.id] ?? 0.7;
+
+                            if (isActive) {
+                                return (
+                                    <View
+                                        key={sound.id}
+                                        style={[s.soundRow, s.soundRowActive, {
+                                            borderColor: accent + '70',
+                                            shadowColor: accent,
+                                        }]}
+                                    >
+                                        <View style={s.soundRowHeader}>
+                                            <Text style={s.soundRowEmoji}>{sound.emoji}</Text>
+                                            <Text style={[s.soundRowName, { color: accent }]}>
+                                                {sound.name.toUpperCase()}
+                                            </Text>
+                                            <Text style={[s.soundRowPct, { color: accent }]}>
+                                                {Math.round(vol * 100)}%
+                                            </Text>
+                                            <TouchableOpacity
+                                                onPress={() => toggleSound(sound.id)}
+                                                hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                                            >
+                                                <Text style={[s.soundRowClose, { color: accent + 'aa' }]}>✕</Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                        <Slider
+                                            style={{ width: '100%', height: 32, marginTop: 2 }}
+                                            minimumValue={0}
+                                            maximumValue={1}
+                                            step={0.01}
+                                            value={vol}
+                                            onValueChange={(v) => setVolume(sound.id, v)}
+                                            minimumTrackTintColor={accent}
+                                            maximumTrackTintColor="#22262f"
+                                            thumbTintColor={accent}
+                                        />
+                                    </View>
+                                );
+                            }
+
                             return (
                                 <TouchableOpacity
                                     key={sound.id}
-                                    style={[
-                                        s.soundTile,
-                                        isActive && {
-                                            borderColor: accent,
-                                            shadowColor: accent,
-                                            shadowOpacity: 0.3,
-                                            shadowRadius: 12,
-                                            shadowOffset: { width: 0, height: 0 },
-                                        },
-                                    ]}
+                                    style={[s.soundRow, { opacity: 0.5 }]}
                                     onPress={() => toggleSound(sound.id)}
-                                    activeOpacity={0.8}
+                                    activeOpacity={0.75}
                                 >
-                                    <Text style={[s.soundTileEmoji, !isActive && { opacity: 0.35 }]}>
-                                        {sound.emoji}
+                                    <Text style={s.soundRowEmoji}>{sound.emoji}</Text>
+                                    <Text style={[s.soundRowName, { color: '#6b7280' }]}>
+                                        {sound.name.toUpperCase()}
                                     </Text>
-                                    <Text style={[s.soundTileName, { color: isActive ? accent : '#a9abb3' }]}>
-                                        {sound.name}
-                                    </Text>
+                                    <View style={s.soundRowAdd}>
+                                        <Text style={s.soundRowAddText}>ADD</Text>
+                                    </View>
                                 </TouchableOpacity>
                             );
                         })}
                     </View>
+
+                    {/* Save / Update butonları */}
+
                 </View>
-
-                {/* ── MIXER ───────────────────────────────────────────────────── */}
-                {activeSounds.length > 0 && (
-                    <View style={s.mixerPanel}>
-                        {activeSounds.map((id) => {
-                            const sound = SOUNDS.find((ss) => ss.id === id);
-                            const vol = volumes[id] ?? 0.7;
-                            const accent = SOUND_COLORS[id] ?? '#98a9ff';
-                            return (
-                                <View key={id} style={s.mixerRow}>
-                                    <View style={s.mixerRowHeader}>
-                                        <View style={s.mixerRowLeft}>
-                                            <Text style={{ fontSize: 14 }}>{sound?.emoji}</Text>
-                                            <Text style={s.mixerRowName}>{sound?.name} Volume</Text>
-                                        </View>
-                                        <Text style={[s.mixerRowPct, { color: accent }]}>
-                                            {Math.round(vol * 100)}%
-                                        </Text>
-                                    </View>
-                                    <Slider
-                                        style={{ width: '100%', height: 36 }}
-                                        minimumValue={0}
-                                        maximumValue={1}
-                                        step={0.01}
-                                        value={vol}
-                                        onValueChange={(v) => setVolume(id, v)}
-                                        minimumTrackTintColor={accent}
-                                        maximumTrackTintColor="#22262f"
-                                        thumbTintColor="#ecedf6"
-                                    />
-                                </View>
-                            );
-                        })}
-
-                        <View style={s.mixerActions}>
-                            {activeMix ? (
-                                hasChanges && (
-                                    <TouchableOpacity
-                                        style={s.updateBtn}
-                                        onPress={() => updateMix(activeMix.id)}
-                                        activeOpacity={0.8}
-                                    >
-                                        <Text style={s.updateBtnText}>↻ "{activeMix.name}" Güncelle</Text>
-                                    </TouchableOpacity>
-                                )
-                            ) : (
-                                activeSounds.length >= 2 && (
-                                    <TouchableOpacity
-                                        style={s.saveNewBtn}
-                                        onPress={() => setSaveModalVisible(true)}
-                                        activeOpacity={0.8}
-                                    >
-                                        <Text style={s.saveNewBtnText}>+ Yeni Karışım Kaydet</Text>
-                                    </TouchableOpacity>
-                                )
-                            )}
-                        </View>
-                    </View>
-                )}
 
                 {/* ── SLEEP TIMER ─────────────────────────────────────────────── */}
                 <View style={s.section}>
@@ -363,7 +339,29 @@ function SleepScreen() {
                 </View>
 
             </ScrollView>
-
+            {activeSounds.length >= 2 && (
+                <View style={{ marginTop: 16 }}>
+                    {activeMix ? (
+                        hasChanges && (
+                            <TouchableOpacity
+                                style={s.updateBtn}
+                                onPress={() => updateMix(activeMix.id)}
+                                activeOpacity={0.8}
+                            >
+                                <Text style={s.updateBtnText}> Update "{activeMix.name}"</Text>
+                            </TouchableOpacity>
+                        )
+                    ) : (
+                        <TouchableOpacity
+                            style={s.saveNewBtn}
+                            onPress={() => setSaveModalVisible(true)}
+                            activeOpacity={0.8}
+                        >
+                            <Text style={s.saveNewBtnText}>+ Add new mix</Text>
+                        </TouchableOpacity>
+                    )}
+                </View>
+            )}
             <SaveMixModal
                 visible={saveModalVisible}
                 onClose={() => setSaveModalVisible(false)}
