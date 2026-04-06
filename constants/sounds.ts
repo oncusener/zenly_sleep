@@ -84,7 +84,7 @@ export const SOUNDS = [
     },
     {
         id: 'baby_sleeping',
-        name: 'For Baby Sleeping',
+        name: 'Baby Sleep',
         premium: false,
         file: require('../assets/sounds/baby_sleeping.mp3'),
     },

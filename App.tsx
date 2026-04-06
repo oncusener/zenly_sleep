@@ -182,13 +182,13 @@ function SleepScreen() {
                 contentContainerStyle={{ paddingBottom: 40 }}
             >
                 {/* ── SAVED MIXES ─────────────────────────────────────────── */}
-                <View style={s.section}>
+                {savedMixes.length>0 ?<View style={s.section}>
                     <Text style={s.sectionLabel}>SAVED MIXES</Text>
                     <ScrollView
                         horizontal
                         showsHorizontalScrollIndicator={false}
-                        style={{ marginLeft: -24, paddingLeft: 24, marginTop: 14 }}
-                        contentContainerStyle={{ paddingRight: 24, gap: 14 }}
+                        style={{marginLeft: -24, paddingLeft: 24, marginTop: 14}}
+                        contentContainerStyle={{paddingRight: 24, gap: 14}}
                     >
                         {savedMixes.map((mix) => {
                             const isActive = activeMixId === mix.id;
@@ -204,7 +204,7 @@ function SleepScreen() {
                                             shadowColor: '#98a9ff',
                                             shadowOpacity: 0.5,
                                             shadowRadius: 16,
-                                            shadowOffset: { width: 0, height: 0 },
+                                            shadowOffset: {width: 0, height: 0},
                                             elevation: 12,
                                         },
                                     ]}
@@ -215,23 +215,26 @@ function SleepScreen() {
                                     {hasImg ? (
                                         <>
                                             <Image
-                                                source={{ uri: MIX_IMAGES[mix.id] }}
-                                                style={[StyleSheet.absoluteFill, { opacity: isActive ? 0.6 : 0.25 }]}
+                                                source={{uri: MIX_IMAGES[mix.id]}}
+                                                style={[StyleSheet.absoluteFill, {opacity: isActive ? 0.6 : 0.25}]}
                                                 resizeMode="cover"
                                             />
-                                            <View style={s.mixCardOverlay} />
+                                            <View style={s.mixCardOverlay}/>
                                         </>
                                     ) : (
-                                        <View style={[StyleSheet.absoluteFill, { backgroundColor: accent + '20', borderRadius: 22 }]} />
+                                        <View style={[StyleSheet.absoluteFill, {
+                                            backgroundColor: accent + '20',
+                                            borderRadius: 22
+                                        }]}/>
                                     )}
 
                                     {isActive && (
                                         <View style={s.mixCheck}>
-                                            <Text style={{ color: '#98a9ff', fontSize: 12 }}>✓</Text>
+                                            <Text style={{color: '#98a9ff', fontSize: 12}}>✓</Text>
                                         </View>
                                     )}
                                     <View style={s.mixCardContent}>
-                                        <Text style={[s.mixCardName, !isActive && { opacity: 0.6 }]}>{mix.name}</Text>
+                                        <Text style={[s.mixCardName, !isActive && {opacity: 0.6}]}>{mix.name}</Text>
                                     </View>
                                 </TouchableOpacity>
                             );
@@ -245,7 +248,7 @@ function SleepScreen() {
                             <Text style={s.mixCardAddIcon}>+</Text>
                         </TouchableOpacity>
                     </ScrollView>
-                </View>
+                </View>:null}
 
                 {/* ── SOUNDS (YAN YANA %50 %50 GRID) ─────────────────────── */}
                 <View style={s.section}>
@@ -326,7 +329,7 @@ function SleepScreen() {
                                     style={[
                                         s.soundRow,
                                         {
-                                            width: '48%', // ✅ Yüzde 50 Genişlik
+                                            width: '48%',
                                             marginBottom: 10,
                                             opacity: 0.5
                                         }
@@ -335,12 +338,9 @@ function SleepScreen() {
                                     activeOpacity={0.75}
                                 >
                                     <Text style={s.soundRowEmoji}>{sound.emoji}</Text>
-                                    <Text style={[s.soundRowName, { color: '#6b7280' }]} numberOfLines={1}>
+                                    <Text style={[s.soundRowName, { color: 'white' }]} numberOfLines={1}>
                                         {sound.name.toUpperCase()}
                                     </Text>
-                                    <View style={s.soundRowAdd}>
-                                        <Text style={s.soundRowAddText}>ADD</Text>
-                                    </View>
                                 </TouchableOpacity>
                             );
                         })}

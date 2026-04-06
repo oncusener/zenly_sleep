@@ -2,13 +2,13 @@
 
 export const SOUND_COLORS: Record<string, string> = {
     rain:   '#98a9ff',
-    ocean:  '#83fba5',
-    wind:   '#a8b8ff',
-    fire:   '#ff6e84',
+    ocean: '#98a9ff',
+    wind:   '#98a9ff',
+    fire:   '#98a9ff',
     white:  '#98a9ff',
-    forest: '#83fba5',
-    fan:    '#75ec98',
-    brown:  '#f4c97a',
+    forest: '#98a9ff',
+    fan:   '#98a9ff',
+    brown:  '#98a9ff',
 };
 
 export const SOUND_SUBTITLES: Record<string, string> = {
