@@ -16,8 +16,6 @@ import { s, m } from './styles/sleep.styles';
 import { SOUND_COLORS, MIX_IMAGES } from './styles/theme';
 
 const Tab = createBottomTabNavigator();
-
-// Sabit değerler
 const DEFAULT_VOLUME = 0.7;
 
 // ── SaveMixModal ──────────────────────────────────────────────────────────────
@@ -77,7 +75,6 @@ function SleepScreen() {
     const [remaining, setRemaining] = useState(0);
     const fadeInterval = useRef<ReturnType<typeof setInterval> | null>(null);
 
-    // Memory leak fix
     useEffect(() => {
         return () => {
             if (fadeInterval.current) {
@@ -95,11 +92,11 @@ function SleepScreen() {
     const hasChanges = useMemo(() => {
         if (!activeMix) return false;
         const curSounds = [...activeSounds].sort().join(',');
-        const savSounds = [...activeMix.sounds.map((s) => s.id)].sort().join(',');
+        const savSounds = [...activeMix.sounds.map((snd) => snd.id)].sort().join(',');
         if (curSounds !== savSounds) return true;
         return activeSounds.some((id) => {
             const cur = Math.round((volumes[id] ?? DEFAULT_VOLUME) * 100);
-            const sav = Math.round((activeMix.sounds.find((s) => s.id === id)?.volume ?? DEFAULT_VOLUME) * 100);
+            const sav = Math.round((activeMix.sounds.find((snd) => snd.id === id)?.volume ?? DEFAULT_VOLUME) * 100);
             return cur !== sav;
         });
     }, [activeSounds, volumes, activeMix]);
@@ -169,21 +166,22 @@ function SleepScreen() {
         <View style={s.container}>
             <StatusBar barStyle="light-content" />
 
+            {/* Top Bar */}
             <View style={s.topBar}>
                 <View style={s.topBarLeft}>
                     <Text style={s.topBarIcon}>🌙</Text>
                     <Text style={s.topBarTitle}>ZENLY SLEEP</Text>
                 </View>
-                <TouchableOpacity hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}>
-                    <Text style={s.settingsIcon}>⚙</Text>
-                </TouchableOpacity>
+                {/*<TouchableOpacity hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}>*/}
+                {/*    <Text style={s.settingsIcon}>⚙</Text>*/}
+                {/*</TouchableOpacity>*/}
             </View>
 
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ paddingBottom: 40 }}
             >
-                {/* SAVED MIXES */}
+                {/* ── SAVED MIXES ─────────────────────────────────────────── */}
                 <View style={s.section}>
                     <Text style={s.sectionLabel}>SAVED MIXES</Text>
                     <ScrollView
@@ -249,7 +247,7 @@ function SleepScreen() {
                     </ScrollView>
                 </View>
 
-                {/* SOUNDS */}
+                {/* ── SOUNDS (YAN YANA %50 %50 GRID) ─────────────────────── */}
                 <View style={s.section}>
                     <View style={s.sectionHeader}>
                         <Text style={s.sectionLabel}>SOUNDS</Text>
@@ -259,7 +257,9 @@ function SleepScreen() {
                             </TouchableOpacity>
                         )}
                     </View>
-                    <View style={s.soundList}>
+
+                    {/* ✅ YENİ: 2 Kolon Grid Yapısı */}
+                    <View style={[s.soundList, { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }]}>
                         {SOUNDS.map((sound) => {
                             const isActive = activeSounds.includes(sound.id);
                             const accent = SOUND_COLORS[sound.id] ?? '#98a9ff';
@@ -269,14 +269,30 @@ function SleepScreen() {
                                 return (
                                     <View
                                         key={sound.id}
-                                        style={[s.soundRow, s.soundRowActive, {
-                                            borderColor: accent + '70',
-                                            shadowColor: accent,
-                                        }]}
+                                        style={[
+                                            s.soundRow,
+                                            {
+                                                width: '48%', // ✅ Yüzde 50 Genişlik
+                                                marginBottom: 10, // Alt boşluk
+                                                flexDirection: 'column',
+                                                alignItems: 'stretch',
+                                                gap: 0,
+                                                paddingVertical: 14,
+                                                paddingHorizontal: 16,
+                                                backgroundColor: '#161a21',
+                                                borderWidth: 1,
+                                                borderColor: accent + '70',
+                                                shadowColor: accent,
+                                                shadowOpacity: 0.25,
+                                                shadowRadius: 10,
+                                                shadowOffset: { width: 0, height: 0 },
+                                                elevation: 6,
+                                            },
+                                        ]}
                                     >
-                                        <View style={s.soundRowHeader}>
+                                        <View style={[s.soundRowHeader, { gap: 10 }]}>
                                             <Text style={s.soundRowEmoji}>{sound.emoji}</Text>
-                                            <Text style={[s.soundRowName, { color: accent }]}>
+                                            <Text style={[s.soundRowName, { color: accent, fontSize: 11 }]} numberOfLines={1}>
                                                 {sound.name.toUpperCase()}
                                             </Text>
                                             <Text style={[s.soundRowPct, { color: accent }]}>
@@ -286,11 +302,11 @@ function SleepScreen() {
                                                 onPress={() => toggleSound(sound.id)}
                                                 hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
                                             >
-                                                <Text style={[s.soundRowClose, { color: accent + 'aa' }]}>✕</Text>
+                                                <Text style={[s.soundRowClose, { color: accent + 'aa', fontSize: 14, fontWeight: '700' }]}>✕</Text>
                                             </TouchableOpacity>
                                         </View>
                                         <Slider
-                                            style={{ width: '100%', height: 32, marginTop: 2 }}
+                                            style={{ width: '100%', height: 32, marginTop: 4 }}
                                             minimumValue={0}
                                             maximumValue={1}
                                             step={0.01}
@@ -307,12 +323,19 @@ function SleepScreen() {
                             return (
                                 <TouchableOpacity
                                     key={sound.id}
-                                    style={[s.soundRow, { opacity: 0.5 }]}
+                                    style={[
+                                        s.soundRow,
+                                        {
+                                            width: '48%', // ✅ Yüzde 50 Genişlik
+                                            marginBottom: 10,
+                                            opacity: 0.5
+                                        }
+                                    ]}
                                     onPress={() => toggleSound(sound.id)}
                                     activeOpacity={0.75}
                                 >
                                     <Text style={s.soundRowEmoji}>{sound.emoji}</Text>
-                                    <Text style={[s.soundRowName, { color: '#6b7280' }]}>
+                                    <Text style={[s.soundRowName, { color: '#6b7280' }]} numberOfLines={1}>
                                         {sound.name.toUpperCase()}
                                     </Text>
                                     <View style={s.soundRowAdd}>
@@ -324,7 +347,14 @@ function SleepScreen() {
                     </View>
                 </View>
 
-                {/* SLEEP TIMER */}
+                {/* ── MIXER PANEL (Kaydet / Güncelle) ─────────────────────── */}
+                {activeSounds.length >= 2 && (
+                    <View style={s.mixerPanel}>
+
+                    </View>
+                )}
+
+                {/* ── SLEEP TIMER ─────────────────────────────────────────── */}
                 <View style={s.section}>
                     <Text style={s.sectionLabel}>SLEEP TIMER</Text>
                     <View style={s.timerRow}>
@@ -354,33 +384,30 @@ function SleepScreen() {
                     </TouchableOpacity>
                     {timerActive && <Text style={s.fadeNote}>AUTOMATIC FADE-OUT ENABLED</Text>}
                 </View>
-
-                {/* SAVE / UPDATE BUTONLARI */}
-                {activeSounds.length >= 2 && (
-                    <View style={{ marginTop: 16, marginBottom: 20 }}>
-                        {activeMix ? (
-                            hasChanges && (
-                                <TouchableOpacity
-                                    style={s.updateBtn}
-                                    onPress={() => updateMix(activeMix.id)}
-                                    activeOpacity={0.8}
-                                >
-                                    <Text style={s.updateBtnText}> Update "{activeMix.name}"</Text>
-                                </TouchableOpacity>
-                            )
-                        ) : (
-                            <TouchableOpacity
-                                style={s.saveNewBtn}
-                                onPress={() => setSaveModalVisible(true)}
-                                activeOpacity={0.8}
-                            >
-                                <Text style={s.saveNewBtnText}>+ Add new mix</Text>
-                            </TouchableOpacity>
-                        )}
-                    </View>
-                )}
             </ScrollView>
-
+            {activeMix ? (
+                hasChanges && (
+                    <View style={s.mixerActions}>
+                        <TouchableOpacity
+                            style={s.updateBtn}
+                            onPress={() => updateMix(activeMix.id)}
+                            activeOpacity={0.8}
+                        >
+                            <Text style={s.updateBtnText}>Update "{activeMix.name}"</Text>
+                        </TouchableOpacity>
+                    </View>
+                )
+            ) : (
+                <View style={s.mixerActions}>
+                    <TouchableOpacity
+                        style={s.saveNewBtn}
+                        onPress={() => setSaveModalVisible(true)}
+                        activeOpacity={0.8}
+                    >
+                        <Text style={s.saveNewBtnText}>+ Add new mix</Text>
+                    </TouchableOpacity>
+                </View>
+            )}
             <SaveMixModal
                 visible={saveModalVisible}
                 onClose={() => setSaveModalVisible(false)}
