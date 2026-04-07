@@ -2,7 +2,7 @@
   "expo": {
     "name": "zenly",
     "slug": "zenly",
-    "version": "1.0.0",
+    "version": "1.0.5",
     "newArchEnabled": false,
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -15,7 +15,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.oncusener.zenly",
-      "buildNumber": "2" ,
+      "buildNumber": "5" ,
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
@@ -24,7 +24,7 @@
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "newArchEnabled": false,
-        "versionCode": 2 ,
+        "versionCode": 5 ,
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
