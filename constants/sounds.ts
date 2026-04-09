@@ -81,17 +81,21 @@ export const SOUNDS = [
         name: 'Bus noise',
         premium: false,
         file: require('../assets/sounds/bus_noise.mp3'),
+        image: require('../assets/pics/bus_noise.png')
     },
     {
         id: 'baby_sleeping',
         name: 'Baby Sleep',
         premium: false,
         file: require('../assets/sounds/baby_sleeping.mp3'),
+        image: require('../assets/pics/baby_sleeping.png')
     },
     {
         id: 'street',
         name: 'Street',
         premium: false,
         file: require('../assets/sounds/street.mp3'),
+        image: require('../assets/pics/street.png')
+
     },
 ];

@@ -1,24 +1,38 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
-
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
     View, Text, TouchableOpacity, ScrollView,
-    StatusBar, Image, Alert, TextInput, Modal, StyleSheet,
+    StatusBar, Image, Alert, TextInput, Modal, StyleSheet, ImageBackground,
 } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Slider from '@react-native-community/slider';
 
 import { useSoundStore, SavedMix } from './stores/soundStore';
 import { SOUNDS } from './constants/sounds';
 import AudioProvider from './components/AudioProvider';
-
-import { s, m } from './styles/sleep.styles';
-import { SOUND_COLORS, MIX_IMAGES } from './styles/theme';
+import { s, m, p } from './styles/app.styles';
 
 const Tab = createBottomTabNavigator();
 const DEFAULT_VOLUME = 0.7;
 
+const SOUND_COLORS: Record<string, string> = {
+    ambient:       '#7ac97a',
+    bass:          '#c678dd',
+    rain:          '#6ea8fe',
+    ocean:         '#98a9ff',
+    wind:          '#5dd3b3',
+    fire:          '#ff7f5c',
+    forest:        '#56b6c2',
+    river:         '#4ec9b0',
+    thunder:       '#f5a623',
+    cafe:          '#e8c07a',
+    bus_noise:     '#abb2bf',
+    baby_sleeping: '#f48fb1',
+    street:        '#888780',
+};
+
 // ── SaveMixModal ──────────────────────────────────────────────────────────────
+
 function SaveMixModal({
                           visible, onClose, onSave,
                       }: { visible: boolean; onClose: () => void; onSave: (name: string) => void }) {
@@ -26,7 +40,7 @@ function SaveMixModal({
 
     function handleSave() {
         const t = name.trim();
-        if (!t) { Alert.alert('İsim gerekli', 'Lütfen bir isim gir.'); return; }
+        if (!t) { Alert.alert('Name required', 'Please enter a name.'); return; }
         onSave(t);
         setName('');
         onClose();
@@ -50,10 +64,10 @@ function SaveMixModal({
                     />
                     <View style={m.row}>
                         <TouchableOpacity style={m.cancelBtn} onPress={onClose} activeOpacity={0.8}>
-                            <Text style={m.cancelText}>İptal</Text>
+                            <Text style={m.cancelText}>Cancel</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={m.saveBtn} onPress={handleSave} activeOpacity={0.85}>
-                            <Text style={m.saveText}>Kaydet</Text>
+                            <Text style={m.saveText}>Save</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -62,13 +76,161 @@ function SaveMixModal({
     );
 }
 
+// ── PremiumBanner ─────────────────────────────────────────────────────────────
+
+function PremiumBanner({ onPress }: { onPress: () => void }) {
+    return (
+        <TouchableOpacity style={p.banner} onPress={onPress} activeOpacity={0.85}>
+            <View style={p.bannerIcon}>
+                <Text style={{ fontSize: 16 }}>✦</Text>
+            </View>
+            <View style={p.bannerText}>
+                <Text style={p.bannerTitle}>Unlock all sounds</Text>
+                <Text style={p.bannerSub}>Get access to premium sounds</Text>
+            </View>
+            <View style={p.bannerCta}>
+                <Text style={p.bannerCtaText}>Upgrade →</Text>
+            </View>
+        </TouchableOpacity>
+    );
+}
+
+// ── SoundCard ─────────────────────────────────────────────────────────────────
+
+interface SoundCardProps {
+    sound: typeof SOUNDS[number];
+    isActive: boolean;
+    isPremiumUser: boolean;
+    volume: number;
+    onToggle: () => void;
+    onVolumeChange: (v: number) => void;
+    onPremiumPress: () => void;
+}
+
+function SoundCard({
+                       sound, isActive, isPremiumUser, volume,
+                       onToggle, onVolumeChange, onPremiumPress,
+                   }: SoundCardProps) {
+    const accent = SOUND_COLORS[sound.id] ?? '#98a9ff';
+    const isLocked = sound.premium && !isPremiumUser;
+
+    // ── Locked
+    if (isLocked) {
+        return (
+            <TouchableOpacity
+                style={[s.soundCard, s.soundCardLocked]}
+                onPress={onPremiumPress}
+                activeOpacity={0.7}
+            >
+                {sound.image && (
+                    <Image
+                        source={sound.image}
+                        style={[StyleSheet.absoluteFill, { borderRadius: 14, opacity: 0.18 }]}
+                        resizeMode="cover"
+                    />
+                )}
+                {/* koyu overlay */}
+                <View style={[StyleSheet.absoluteFill, { borderRadius: 14, backgroundColor: 'rgba(0,0,0,0.55)' }]} />
+                {/* içerik — sol alt köşe */}
+                <View style={s.cardBottom}>
+                    <Text style={s.cardNameLocked} numberOfLines={1}>
+                        {sound.name.toUpperCase()}
+                    </Text>
+                    <View style={s.proBadge}>
+                        <View style={s.proDot} />
+                        <Text style={s.proBadgeText}>PRO</Text>
+                    </View>
+                </View>
+            </TouchableOpacity>
+        );
+    }
+
+    // ── Active (slider'lı)
+    if (isActive) {
+        return (
+            <View style={[s.soundCard, s.soundCardActive, { borderColor: accent + '60' }]}>
+                {sound.image && (
+                    <Image
+                        source={sound.image}
+                        style={[StyleSheet.absoluteFill, { borderRadius: 14, opacity: 0.28 }]}
+                        resizeMode="cover"
+                    />
+                )}
+                {/* gradient benzeri koyu overlay — alta doğru koyulaşır */}
+                <View style={[StyleSheet.absoluteFill, {
+                    borderRadius: 14,
+                    backgroundColor: 'rgba(0,0,0,0.45)',
+                }]} />
+                {/* içerik */}
+                <View style={s.activeInner}>
+                    <View style={s.activeHeader}>
+                        <Text style={[s.cardNameActive, { color: accent }]} numberOfLines={1}>
+                            {sound.name.toUpperCase()}
+                        </Text>
+                        <Text style={[s.cardVol, { color: accent }]}>
+                            {Math.round(volume * 100)}%
+                        </Text>
+                        <TouchableOpacity
+                            onPress={onToggle}
+                            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                        >
+                            <Text style={[s.closeBtn, { color: accent + 'cc' }]}>✕</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <Slider
+                        style={s.slider}
+                        minimumValue={0}
+                        maximumValue={1}
+                        step={0.01}
+                        value={volume}
+                        onValueChange={onVolumeChange}
+                        minimumTrackTintColor={accent}
+                        maximumTrackTintColor="#ffffff30"
+                        thumbTintColor={accent}
+                    />
+                </View>
+            </View>
+        );
+    }
+
+    // ── Inactive free
+    return (
+        <TouchableOpacity
+            style={[s.soundCard, s.soundCardInactive]}
+            onPress={onToggle}
+            activeOpacity={0.8}
+        >
+            {sound.image && (
+                <Image
+                    source={sound.image}
+                    style={[StyleSheet.absoluteFill, { borderRadius: 14, opacity: 0.22 }]}
+                    resizeMode="cover"
+                />
+            )}
+            {/* hafif koyu overlay */}
+            <View style={[StyleSheet.absoluteFill, { borderRadius: 14, backgroundColor: 'rgba(0,0,0,0.38)' }]} />
+            {/* sol alt: isim + badge */}
+            <View style={s.cardBottom}>
+                <Text style={s.cardNameInactive} numberOfLines={1}>
+                    {sound.name.toUpperCase()}
+                </Text>
+                <View style={s.freeBadge}>
+                    <Text style={s.freeBadgeText}>FREE</Text>
+                </View>
+            </View>
+        </TouchableOpacity>
+    );
+}
+
 // ── SleepScreen ───────────────────────────────────────────────────────────────
+
 function SleepScreen() {
     const {
         activeSounds, volumes, activeMixId, savedMixes,
         toggleSound, setVolume, clearAll, loadMix, saveMix, updateMix, deleteMix,
     } = useSoundStore();
 
+    const [isPremiumUser] = useState(false);
     const [sleepTimer, setSleepTimer] = useState(30);
     const [timerActive, setTimerActive] = useState(false);
     const [saveModalVisible, setSaveModalVisible] = useState(false);
@@ -76,17 +238,12 @@ function SleepScreen() {
     const fadeInterval = useRef<ReturnType<typeof setInterval> | null>(null);
 
     useEffect(() => {
-        return () => {
-            if (fadeInterval.current) {
-                clearInterval(fadeInterval.current);
-                fadeInterval.current = null;
-            }
-        };
+        return () => { if (fadeInterval.current) clearInterval(fadeInterval.current); };
     }, []);
 
     const activeMix = useMemo(
         () => savedMixes.find((mx) => mx.id === activeMixId) ?? null,
-        [savedMixes, activeMixId]
+        [savedMixes, activeMixId],
     );
 
     const hasChanges = useMemo(() => {
@@ -96,33 +253,39 @@ function SleepScreen() {
         if (curSounds !== savSounds) return true;
         return activeSounds.some((id) => {
             const cur = Math.round((volumes[id] ?? DEFAULT_VOLUME) * 100);
-            const sav = Math.round((activeMix.sounds.find((snd) => snd.id === id)?.volume ?? DEFAULT_VOLUME) * 100);
+            const sav = Math.round(
+                (activeMix.sounds.find((snd) => snd.id === id)?.volume ?? DEFAULT_VOLUME) * 100,
+            );
             return cur !== sav;
         });
     }, [activeSounds, volumes, activeMix]);
 
+    function handlePremiumPress() {
+        Alert.alert(
+            'Unlock Premium',
+            'Get access to all sounds with a premium subscription.',
+            [
+                { text: 'Not now', style: 'cancel' },
+                { text: 'Upgrade', onPress: () => { /* TODO: RevenueCat */ } },
+            ],
+        );
+    }
+
     function handleMixCardPress(mix: SavedMix) {
-        if (activeMixId === mix.id) {
-            clearAll();
-        } else {
-            loadMix(mix);
-        }
+        if (activeMixId === mix.id) clearAll();
+        else loadMix(mix);
     }
 
     function handleDeleteMix(mix: SavedMix) {
-        Alert.alert(
-            'Karışımı Sil',
-            `"${mix.name}" silinsin mi?`,
-            [
-                { text: 'İptal', style: 'cancel' },
-                { text: 'Sil', style: 'destructive', onPress: () => deleteMix(mix.id) },
-            ]
-        );
+        Alert.alert('Delete mix', `Delete "${mix.name}"?`, [
+            { text: 'Cancel', style: 'cancel' },
+            { text: 'Delete', style: 'destructive', onPress: () => deleteMix(mix.id) },
+        ]);
     }
 
     function startFade() {
         if (activeSounds.length === 0) {
-            Alert.alert('Ses Seç', 'Önce en az bir ses seç.');
+            Alert.alert('No sounds', 'Select at least one sound first.');
             return;
         }
         const totalSeconds = sleepTimer * 60;
@@ -132,19 +295,15 @@ function SleepScreen() {
 
         setRemaining(totalSeconds);
         setTimerActive(true);
-
         if (fadeInterval.current) clearInterval(fadeInterval.current);
 
         fadeInterval.current = setInterval(() => {
             elapsed += 1;
             const factor = 1 - elapsed / totalSeconds;
-
-            soundsToFade.forEach(id => {
-                setVolume(id, Math.max(0, (startVolumes[id] ?? DEFAULT_VOLUME) * factor));
-            });
-
+            soundsToFade.forEach((id) =>
+                setVolume(id, Math.max(0, (startVolumes[id] ?? DEFAULT_VOLUME) * factor)),
+            );
             setRemaining(totalSeconds - elapsed);
-
             if (elapsed >= totalSeconds) {
                 clearInterval(fadeInterval.current!);
                 fadeInterval.current = null;
@@ -166,195 +325,95 @@ function SleepScreen() {
         <View style={s.container}>
             <StatusBar barStyle="light-content" />
 
-            {/* Top Bar */}
             <View style={s.topBar}>
                 <View style={s.topBarLeft}>
                     <Text style={s.topBarIcon}>🌙</Text>
                     <Text style={s.topBarTitle}>ZENLY SLEEP</Text>
                 </View>
-                {/*<TouchableOpacity hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}>*/}
-                {/*    <Text style={s.settingsIcon}>⚙</Text>*/}
-                {/*</TouchableOpacity>*/}
             </View>
 
             <ScrollView
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ paddingBottom: 40 }}
+                contentContainerStyle={{ paddingBottom: 120 }}
             >
-                {/* ── SAVED MIXES ─────────────────────────────────────────── */}
-                {savedMixes.length>0 ?<View style={s.section}>
-                    <Text style={s.sectionLabel}>SAVED MIXES</Text>
-                    <ScrollView
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
-                        style={{marginLeft: -24, paddingLeft: 24, marginTop: 14}}
-                        contentContainerStyle={{paddingRight: 24, gap: 14}}
-                    >
-                        {savedMixes.map((mix) => {
-                            const isActive = activeMixId === mix.id;
-                            const hasImg = !!MIX_IMAGES[mix.id];
-                            const accent = SOUND_COLORS[mix.sounds[0]?.id ?? 'rain'] ?? '#98a9ff';
-                            return (
-                                <TouchableOpacity
-                                    key={mix.id}
-                                    style={[
-                                        s.mixCard,
-                                        isActive && {
-                                            borderColor: '#98a9ff',
-                                            shadowColor: '#98a9ff',
-                                            shadowOpacity: 0.5,
-                                            shadowRadius: 16,
-                                            shadowOffset: {width: 0, height: 0},
-                                            elevation: 12,
-                                        },
-                                    ]}
-                                    onPress={() => handleMixCardPress(mix)}
-                                    onLongPress={() => handleDeleteMix(mix)}
-                                    activeOpacity={0.85}
-                                >
-                                    {hasImg ? (
-                                        <>
-                                            <Image
-                                                source={{uri: MIX_IMAGES[mix.id]}}
-                                                style={[StyleSheet.absoluteFill, {opacity: isActive ? 0.6 : 0.25}]}
-                                                resizeMode="cover"
-                                            />
-                                            <View style={s.mixCardOverlay}/>
-                                        </>
-                                    ) : (
-                                        <View style={[StyleSheet.absoluteFill, {
-                                            backgroundColor: accent + '20',
-                                            borderRadius: 22
-                                        }]}/>
-                                    )}
-
-                                    {isActive && (
-                                        <View style={s.mixCheck}>
-                                            <Text style={{color: '#98a9ff', fontSize: 12}}>✓</Text>
-                                        </View>
-                                    )}
-                                    <View style={s.mixCardContent}>
-                                        <Text style={[s.mixCardName, !isActive && {opacity: 0.6}]}>{mix.name}</Text>
-                                    </View>
-                                </TouchableOpacity>
-                            );
-                        })}
-
-                        <TouchableOpacity
-                            style={s.mixCardAdd}
-                            onPress={() => activeSounds.length >= 2 ? setSaveModalVisible(true) : null}
-                            activeOpacity={0.7}
+                {/* ── Saved Mixes ─────────────────────────────────────────────── */}
+                {savedMixes.length > 0 && (
+                    <View style={s.section}>
+                        <Text style={s.sectionLabel}>SAVED MIXES</Text>
+                        <ScrollView
+                            horizontal
+                            showsHorizontalScrollIndicator={false}
+                            style={s.mixScroll}
+                            contentContainerStyle={{ paddingRight: 24, gap: 14 }}
                         >
-                            <Text style={s.mixCardAddIcon}>+</Text>
-                        </TouchableOpacity>
-                    </ScrollView>
-                </View>:null}
+                            {savedMixes.map((mix) => {
+                                const isActive = activeMixId === mix.id;
+                                const accent = SOUND_COLORS[mix.sounds[0]?.id ?? 'rain'] ?? '#98a9ff';
+                                return (
+                                    <TouchableOpacity
+                                        key={mix.id}
+                                        style={[s.mixCard, isActive && { borderColor: '#98a9ff' }]}
+                                        onPress={() => handleMixCardPress(mix)}
+                                        onLongPress={() => handleDeleteMix(mix)}
+                                        activeOpacity={0.85}
+                                    >
+                                        <View style={[StyleSheet.absoluteFill, {
+                                            backgroundColor: accent + '18', borderRadius: 22,
+                                        }]} />
+                                        {isActive && (
+                                            <View style={s.mixCheck}>
+                                                <Text style={{ color: '#98a9ff', fontSize: 12 }}>✓</Text>
+                                            </View>
+                                        )}
+                                        <View style={s.mixCardContent}>
+                                            <Text style={[s.mixCardName, !isActive && { opacity: 0.55 }]}>
+                                                {mix.name}
+                                            </Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                );
+                            })}
+                            <TouchableOpacity
+                                style={s.mixCardAdd}
+                                onPress={() => activeSounds.length >= 2 ? setSaveModalVisible(true) : null}
+                                activeOpacity={0.7}
+                            >
+                                <Text style={s.mixCardAddIcon}>+</Text>
+                            </TouchableOpacity>
+                        </ScrollView>
+                    </View>
+                )}
 
-                {/* ── SOUNDS (YAN YANA %50 %50 GRID) ─────────────────────── */}
+                {/* ── Sounds Grid ─────────────────────────────────────────────── */}
                 <View style={s.section}>
                     <View style={s.sectionHeader}>
                         <Text style={s.sectionLabel}>SOUNDS</Text>
                         {activeSounds.length > 0 && (
                             <TouchableOpacity onPress={clearAll}>
-                                <Text style={s.clearAll}>Clear All</Text>
+                                <Text style={s.clearAll}>Clear all</Text>
                             </TouchableOpacity>
                         )}
                     </View>
-
-                    {/* ✅ YENİ: 2 Kolon Grid Yapısı */}
-                    <View style={[s.soundList, { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }]}>
-                        {SOUNDS.map((sound) => {
-                            const isActive = activeSounds.includes(sound.id);
-                            const accent = SOUND_COLORS[sound.id] ?? '#98a9ff';
-                            const vol = volumes[sound.id] ?? DEFAULT_VOLUME;
-
-                            if (isActive) {
-                                return (
-                                    <View
-                                        key={sound.id}
-                                        style={[
-                                            s.soundRow,
-                                            {
-                                                width: '48%', // ✅ Yüzde 50 Genişlik
-                                                marginBottom: 10, // Alt boşluk
-                                                flexDirection: 'column',
-                                                alignItems: 'stretch',
-                                                gap: 0,
-                                                paddingVertical: 14,
-                                                paddingHorizontal: 16,
-                                                backgroundColor: '#161a21',
-                                                borderWidth: 1,
-                                                borderColor: accent + '70',
-                                                shadowColor: accent,
-                                                shadowOpacity: 0.25,
-                                                shadowRadius: 10,
-                                                shadowOffset: { width: 0, height: 0 },
-                                                elevation: 6,
-                                            },
-                                        ]}
-                                    >
-                                        <View style={[s.soundRowHeader, { gap: 10 }]}>
-                                            <Text style={s.soundRowEmoji}>{sound.emoji}</Text>
-                                            <Text style={[s.soundRowName, { color: accent, fontSize: 11 }]} numberOfLines={1}>
-                                                {sound.name.toUpperCase()}
-                                            </Text>
-                                            <Text style={[s.soundRowPct, { color: accent }]}>
-                                                {Math.round(vol * 100)}%
-                                            </Text>
-                                            <TouchableOpacity
-                                                onPress={() => toggleSound(sound.id)}
-                                                hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-                                            >
-                                                <Text style={[s.soundRowClose, { color: accent + 'aa', fontSize: 14, fontWeight: '700' }]}>✕</Text>
-                                            </TouchableOpacity>
-                                        </View>
-                                        <Slider
-                                            style={{ width: '100%', height: 32, marginTop: 4 }}
-                                            minimumValue={0}
-                                            maximumValue={1}
-                                            step={0.01}
-                                            value={vol}
-                                            onValueChange={(v) => setVolume(sound.id, v)}
-                                            minimumTrackTintColor={accent}
-                                            maximumTrackTintColor="#22262f"
-                                            thumbTintColor={accent}
-                                        />
-                                    </View>
-                                );
-                            }
-
-                            return (
-                                <TouchableOpacity
-                                    key={sound.id}
-                                    style={[
-                                        s.soundRow,
-                                        {
-                                            width: '48%',
-                                            marginBottom: 10,
-                                            opacity: 0.5
-                                        }
-                                    ]}
-                                    onPress={() => toggleSound(sound.id)}
-                                    activeOpacity={0.75}
-                                >
-                                    <Text style={s.soundRowEmoji}>{sound.emoji}</Text>
-                                    <Text style={[s.soundRowName, { color: 'white' }]} numberOfLines={1}>
-                                        {sound.name.toUpperCase()}
-                                    </Text>
-                                </TouchableOpacity>
-                            );
-                        })}
+                    <View style={s.soundGrid}>
+                        {SOUNDS.map((sound) => (
+                            <SoundCard
+                                key={sound.id}
+                                sound={sound}
+                                isActive={activeSounds.includes(sound.id)}
+                                isPremiumUser={isPremiumUser}
+                                volume={volumes[sound.id] ?? DEFAULT_VOLUME}
+                                onToggle={() => toggleSound(sound.id)}
+                                onVolumeChange={(v) => setVolume(sound.id, v)}
+                                onPremiumPress={handlePremiumPress}
+                            />
+                        ))}
                     </View>
                 </View>
 
-                {/* ── MIXER PANEL (Kaydet / Güncelle) ─────────────────────── */}
-                {activeSounds.length >= 2 && (
-                    <View style={s.mixerPanel}>
+                {/* ── Premium Banner ───────────────────────────────────────────── */}
+                {!isPremiumUser && <PremiumBanner onPress={handlePremiumPress} />}
 
-                    </View>
-                )}
-
-                {/* ── SLEEP TIMER ─────────────────────────────────────────── */}
+                {/* ── Sleep Timer ──────────────────────────────────────────────── */}
                 <View style={s.section}>
                     <Text style={s.sectionLabel}>SLEEP TIMER</Text>
                     <View style={s.timerRow}>
@@ -385,29 +444,24 @@ function SleepScreen() {
                     {timerActive && <Text style={s.fadeNote}>AUTOMATIC FADE-OUT ENABLED</Text>}
                 </View>
             </ScrollView>
+
+            {/* ── Bottom Bar ──────────────────────────────────────────────────── */}
             {activeMix ? (
                 hasChanges && (
-                    <View style={s.mixerActions}>
-                        <TouchableOpacity
-                            style={s.updateBtn}
-                            onPress={() => updateMix(activeMix.id)}
-                            activeOpacity={0.8}
-                        >
+                    <View style={s.bottomBar}>
+                        <TouchableOpacity style={s.updateBtn} onPress={() => updateMix(activeMix.id)} activeOpacity={0.8}>
                             <Text style={s.updateBtnText}>Update "{activeMix.name}"</Text>
                         </TouchableOpacity>
                     </View>
                 )
             ) : (
-                <View style={s.mixerActions}>
-                    <TouchableOpacity
-                        style={s.saveNewBtn}
-                        onPress={() => setSaveModalVisible(true)}
-                        activeOpacity={0.8}
-                    >
-                        <Text style={s.saveNewBtnText}>+ Add new mix</Text>
+                <View style={s.bottomBar}>
+                    <TouchableOpacity style={s.saveNewBtn} onPress={() => setSaveModalVisible(true)} activeOpacity={0.8}>
+                        <Text style={s.saveNewBtnText}>+ Save as new mix</Text>
                     </TouchableOpacity>
                 </View>
             )}
+
             <SaveMixModal
                 visible={saveModalVisible}
                 onClose={() => setSaveModalVisible(false)}
@@ -418,6 +472,7 @@ function SleepScreen() {
 }
 
 // ── App ───────────────────────────────────────────────────────────────────────
+
 export default function App() {
     return (
         <NavigationContainer>
@@ -430,10 +485,6 @@ export default function App() {
                         borderTopWidth: 0,
                         paddingBottom: 10,
                         height: 68,
-                        shadowColor: '#98a9ff',
-                        shadowOffset: { width: 0, height: -12 },
-                        shadowOpacity: 0.06,
-                        shadowRadius: 24,
                     },
                     tabBarActiveTintColor: '#98a9ff',
                     tabBarInactiveTintColor: '#45484f',
