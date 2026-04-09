@@ -20,13 +20,13 @@ export const SOUNDS = [
         file: require('../assets/sounds/river.mp3'),
         image: require('../assets/pics/river.png')
     },
-    {
-        id: 'ambient',
-        name: 'Jungle',
-        premium: true,
-        file: require('../assets/sounds/ambient.mp3'),
-        image: require('../assets/pics/ambient.png')
-    },
+    // {
+    //     id: 'ambient',
+    //     name: 'Jungle',
+    //     premium: false,
+    //     file: require('../assets/sounds/ambient.mp3'),
+    //     image: require('../assets/pics/ambient.png')
+    // },
     {
         id: 'bass',
         name: 'Bass',

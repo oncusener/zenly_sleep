@@ -61,8 +61,8 @@ export const s = StyleSheet.create({
 
     // Bottom bar
     bottomBar:           { position: 'absolute', bottom: 0, left: 0, right: 0, paddingHorizontal: 24, paddingBottom: 36, paddingTop: 12, backgroundColor: '#0b0e14' },
-    saveNewBtn:          { paddingVertical: 13, borderRadius: 12, borderWidth: 1, borderColor: '#1e2230', backgroundColor: '#0e1018', alignItems: 'center' },
-    saveNewBtnText:      { color: '#454a60', fontSize: 12, fontWeight: '500' },
+    saveNewBtn:          { paddingVertical: 13, borderRadius: 12, borderWidth: 1, borderColor: '#1e2230', backgroundColor: '#1e2230', alignItems: 'center' },
+    saveNewBtnText:      { color: 'green', fontSize: 12, fontWeight: '500' },
     updateBtn:           { paddingVertical: 13, borderRadius: 12, borderWidth: 1, borderColor: '#2a3050', backgroundColor: '#131520', alignItems: 'center' },
     updateBtnText:       { color: '#98a9ff', fontSize: 12, fontWeight: '500' },
 });

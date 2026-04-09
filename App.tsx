@@ -320,7 +320,6 @@ function SleepScreen() {
         setTimerActive(false);
         setRemaining(0);
     }
-
     return (
         <View style={s.container}>
             <StatusBar barStyle="light-content" />
@@ -336,6 +335,7 @@ function SleepScreen() {
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ paddingBottom: 120 }}
             >
+
                 {/* ── Saved Mixes ─────────────────────────────────────────────── */}
                 {savedMixes.length > 0 && (
                     <View style={s.section}>
@@ -394,6 +394,10 @@ function SleepScreen() {
                             </TouchableOpacity>
                         )}
                     </View>
+                    <View style={{marginBottom:10}}>
+                        {!isPremiumUser && <PremiumBanner onPress={handlePremiumPress} />}
+
+                    </View>
                     <View style={s.soundGrid}>
                         {SOUNDS.map((sound) => (
                             <SoundCard
@@ -411,7 +415,6 @@ function SleepScreen() {
                 </View>
 
                 {/* ── Premium Banner ───────────────────────────────────────────── */}
-                {!isPremiumUser && <PremiumBanner onPress={handlePremiumPress} />}
 
                 {/* ── Sleep Timer ──────────────────────────────────────────────── */}
                 <View style={s.section}>
