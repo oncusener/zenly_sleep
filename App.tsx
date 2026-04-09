@@ -174,7 +174,7 @@ function SoundCard({
                             onPress={onToggle}
                             hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
                         >
-                            <Text style={[s.closeBtn, { color: accent + 'cc' }]}>✕</Text>
+                            <Text style={[s.closeBtn, { color: accent + 'cc' }]}>X</Text>
                         </TouchableOpacity>
                     </View>
                     <Slider

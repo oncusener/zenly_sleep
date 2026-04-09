@@ -29,7 +29,7 @@ export const s = StyleSheet.create({
     activeHeader:        { flexDirection: 'row', alignItems: 'center', gap: 6, marginBottom: 2 },
     cardNameActive:      { fontSize: 10, fontWeight: '600', letterSpacing: 0.5, flex: 1 },
     cardVol:             { fontSize: 9, opacity: 0.85 },
-    closeBtn:            { fontSize: 12, fontWeight: '700' },
+    closeBtn:            { fontSize: 12, fontWeight: '900',bottom:25 },
     slider:              { width: '100%', height: 26, marginTop: 0 },
 
     // Badges
