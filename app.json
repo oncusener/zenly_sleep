@@ -2,7 +2,7 @@
   "expo": {
     "name": "zenly",
     "slug": "zenly",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "newArchEnabled": false,
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -24,7 +24,7 @@
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "newArchEnabled": false,
-        "versionCode": 5,
+        "versionCode": 6,
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
