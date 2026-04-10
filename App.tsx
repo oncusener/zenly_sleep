@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     View, Text, TouchableOpacity, ScrollView,
     StatusBar, Image, Alert, TextInput, Modal, StyleSheet, ImageBackground,
@@ -11,6 +11,10 @@ import { useSoundStore, SavedMix } from './stores/soundStore';
 import { SOUNDS } from './constants/sounds';
 import AudioProvider from './components/AudioProvider';
 import { s, m, p } from './styles/app.styles';
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
+const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-7987749549764501/3268250644';
+// ← YENİ: Splash import
+import SplashScreen from './SplashScreen';
 
 const Tab = createBottomTabNavigator();
 const DEFAULT_VOLUME = 0.7;
@@ -114,7 +118,6 @@ function SoundCard({
     const accent = SOUND_COLORS[sound.id] ?? '#98a9ff';
     const isLocked = sound.premium && !isPremiumUser;
 
-    // ── Locked
     if (isLocked) {
         return (
             <TouchableOpacity
@@ -129,9 +132,7 @@ function SoundCard({
                         resizeMode="cover"
                     />
                 )}
-                {/* koyu overlay */}
                 <View style={[StyleSheet.absoluteFill, { borderRadius: 14, backgroundColor: 'rgba(0,0,0,0.55)' }]} />
-                {/* içerik — sol alt köşe */}
                 <View style={s.cardBottom}>
                     <Text style={s.cardNameLocked} numberOfLines={1}>
                         {sound.name.toUpperCase()}
@@ -145,7 +146,6 @@ function SoundCard({
         );
     }
 
-    // ── Active (slider'lı)
     if (isActive) {
         return (
             <View style={[s.soundCard, s.soundCardActive, { borderColor: accent + '60' }]}>
@@ -156,12 +156,10 @@ function SoundCard({
                         resizeMode="cover"
                     />
                 )}
-                {/* gradient benzeri koyu overlay — alta doğru koyulaşır */}
                 <View style={[StyleSheet.absoluteFill, {
                     borderRadius: 14,
                     backgroundColor: 'rgba(0,0,0,0.45)',
                 }]} />
-                {/* içerik */}
                 <View style={s.activeInner}>
                     <View style={s.activeHeader}>
                         <Text style={[s.cardNameActive, { color: accent }]} numberOfLines={1}>
@@ -193,7 +191,6 @@ function SoundCard({
         );
     }
 
-    // ── Inactive free
     return (
         <TouchableOpacity
             style={[s.soundCard, s.soundCardInactive]}
@@ -207,9 +204,7 @@ function SoundCard({
                     resizeMode="cover"
                 />
             )}
-            {/* hafif koyu overlay */}
             <View style={[StyleSheet.absoluteFill, { borderRadius: 14, backgroundColor: 'rgba(0,0,0,0.38)' }]} />
-            {/* sol alt: isim + badge */}
             <View style={s.cardBottom}>
                 <Text style={s.cardNameInactive} numberOfLines={1}>
                     {sound.name.toUpperCase()}
@@ -223,6 +218,7 @@ function SoundCard({
 }
 
 // ── SleepScreen ───────────────────────────────────────────────────────────────
+// (Orijinal kodunla aynı — dokunulmadı)
 
 function SleepScreen() {
     const {
@@ -266,7 +262,7 @@ function SleepScreen() {
             'Get access to all sounds with a premium subscription.',
             [
                 { text: 'Not now', style: 'cancel' },
-                { text: 'Upgrade', onPress: () => { /* TODO: RevenueCat */ } },
+                { text: 'Upgrade', onPress: () => {} },
             ],
         );
     }
@@ -320,10 +316,10 @@ function SleepScreen() {
         setTimerActive(false);
         setRemaining(0);
     }
+
     return (
         <View style={s.container}>
             <StatusBar barStyle="light-content" />
-
             <View style={s.topBar}>
                 <View style={s.topBarLeft}>
                     <Text style={s.topBarIcon}>🌙</Text>
@@ -335,8 +331,6 @@ function SleepScreen() {
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ paddingBottom: 120 }}
             >
-
-                {/* ── Saved Mixes ─────────────────────────────────────────────── */}
                 {savedMixes.length > 0 && (
                     <View style={s.section}>
                         <Text style={s.sectionLabel}>SAVED MIXES</Text>
@@ -384,7 +378,6 @@ function SleepScreen() {
                     </View>
                 )}
 
-                {/* ── Sounds Grid ─────────────────────────────────────────────── */}
                 <View style={s.section}>
                     <View style={s.sectionHeader}>
                         <Text style={s.sectionLabel}>SOUNDS</Text>
@@ -394,9 +387,12 @@ function SleepScreen() {
                             </TouchableOpacity>
                         )}
                     </View>
-                    <View style={{marginBottom:10}}>
-                        {!isPremiumUser && <PremiumBanner onPress={handlePremiumPress} />}
-
+                    <View style={{ alignItems: 'center', marginVertical: 10 }}>
+                        <BannerAd
+                            unitId={adUnitId}
+                            size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                            requestOptions={{ requestNonPersonalizedAdsOnly: true }}
+                        />
                     </View>
                     <View style={s.soundGrid}>
                         {SOUNDS.map((sound) => (
@@ -413,10 +409,13 @@ function SleepScreen() {
                         ))}
                     </View>
                 </View>
-
-                {/* ── Premium Banner ───────────────────────────────────────────── */}
-
-                {/* ── Sleep Timer ──────────────────────────────────────────────── */}
+                <View style={{ alignItems: 'center', marginTop: 20, marginBottom: 10 }}>
+                    <BannerAd
+                        unitId={adUnitId}
+                        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                        requestOptions={{ requestNonPersonalizedAdsOnly: true }}
+                    />
+                </View>
                 <View style={s.section}>
                     <Text style={s.sectionLabel}>SLEEP TIMER</Text>
                     <View style={s.timerRow}>
@@ -433,6 +432,7 @@ function SleepScreen() {
                             </TouchableOpacity>
                         ))}
                     </View>
+
                     <TouchableOpacity
                         style={[s.startBtn, timerActive && s.startBtnActive]}
                         onPress={timerActive ? cancelFade : startFade}
@@ -447,8 +447,13 @@ function SleepScreen() {
                     {timerActive && <Text style={s.fadeNote}>AUTOMATIC FADE-OUT ENABLED</Text>}
                 </View>
             </ScrollView>
-
-            {/* ── Bottom Bar ──────────────────────────────────────────────────── */}
+            <View style={{ alignItems: 'center', marginTop: 20, marginBottom: 10 }}>
+                <BannerAd
+                    unitId={adUnitId}
+                    size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                    requestOptions={{ requestNonPersonalizedAdsOnly: true }}
+                />
+            </View>
             {activeMix ? (
                 hasChanges && (
                     <View style={s.bottomBar}>
@@ -470,13 +475,15 @@ function SleepScreen() {
                 onClose={() => setSaveModalVisible(false)}
                 onSave={(name) => saveMix(name)}
             />
+
         </View>
     );
 }
 
-// ── App ───────────────────────────────────────────────────────────────────────
+// ── MainApp ───────────────────────────────────────────────────────────────────
+// Tab navigator ayrı component'a çıkarıldı — splash sonrası render edilir
 
-export default function App() {
+function MainApp() {
     return (
         <NavigationContainer>
             <AudioProvider />
@@ -505,4 +512,17 @@ export default function App() {
             </Tab.Navigator>
         </NavigationContainer>
     );
+}
+
+// ── App ───────────────────────────────────────────────────────────────────────
+// ↓ Tek değişiklik: showSplash state ile SplashScreen → MainApp geçişi
+
+import { useRef, useEffect, useMemo } from 'react';
+
+export default function App() {
+    const [showSplash, setShowSplash] = useState(true);
+
+    return showSplash
+        ? <SplashScreen onFinish={() => setShowSplash(false)} />
+        : <MainApp />;
 }

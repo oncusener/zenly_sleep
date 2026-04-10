@@ -30,14 +30,14 @@ export const SOUNDS = [
     {
         id: 'bass',
         name: 'Bass',
-        premium: true,
+        premium: false,
         file: require('../assets/sounds/bass.mp3'),
         image: require('../assets/pics/bass.png')
     },
     {
         id: 'rain',
         name: 'Rain',
-        premium: true,
+        premium: false,
         file: require('../assets/sounds/rain.mp3'),
         image: require('../assets/pics/rain.png')
     },
@@ -45,14 +45,14 @@ export const SOUNDS = [
     {
         id: 'wind',
         name: 'Wind',
-        premium: true,
+        premium: false,
         file: require('../assets/sounds/wind.mp3'),
         image: require('../assets/pics/wind.png')
     },
     {
         id: 'fire',
         name: 'Fireplace',
-        premium: true,
+        premium: false,
         file: require('../assets/sounds/fire.mp3'),
         image: require('../assets/pics/fire.png')
     },
@@ -68,35 +68,35 @@ export const SOUNDS = [
     {
         id: 'thunder',
         name: 'Thunder',
-        premium: true,
+        premium: false,
         file: require('../assets/sounds/thunder.mp3'),
         image: require('../assets/pics/thunder.png')
     },
     {
         id: 'cafe',
         name: 'Café',
-        premium: true,
+        premium: false,
         file: require('../assets/sounds/cafe.mp3'),
         image: require('../assets/pics/cafe.png')
     },
     {
         id: 'bus_noise',
         name: 'Bus noise',
-        premium: true,
+        premium: false,
         file: require('../assets/sounds/bus_noise.mp3'),
         image: require('../assets/pics/bus_noise.png')
     },
     {
         id: 'baby_sleeping',
         name: 'Baby Sleep',
-        premium: true,
+        premium: false,
         file: require('../assets/sounds/baby_sleeping.mp3'),
         image: require('../assets/pics/baby_sleeping.png')
     },
     {
         id: 'street',
         name: 'Street',
-        premium: true,
+        premium: false,
         file: require('../assets/sounds/street.mp3'),
         image: require('../assets/pics/street.png')
 
