@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { AD_UNIT_ID_PROD } from '@env';
 import {
     View, Text, TouchableOpacity, ScrollView,
     StatusBar, Image, Alert, TextInput, Modal, StyleSheet, ImageBackground,
@@ -12,8 +13,7 @@ import { SOUNDS } from './constants/sounds';
 import AudioProvider from './components/AudioProvider';
 import { s, m, p } from './styles/app.styles';
 import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
-const adUnitId = __DEV__ ? TestIds.BANNER : 'ca-app-pub-7987749549764501/3268250644';
-// ← YENİ: Splash import
+const adUnitId = __DEV__ ? TestIds.BANNER : AD_UNIT_ID_PROD;
 import SplashScreen from './SplashScreen';
 
 const Tab = createBottomTabNavigator();
