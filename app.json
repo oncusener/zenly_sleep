@@ -2,7 +2,7 @@
   "expo": {
     "name": "zenly sleep",
     "slug": "zenly",
-    "version": "1.0.10",
+    "version": "1.0.11",
     "newArchEnabled": false,
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -16,13 +16,13 @@
       "supportsTablet": true,
       "backgroundColor": "#12151D",
       "bundleIdentifier": "com.oncusener.zenly",
-      "buildNumber": "10",
+      "buildNumber": "11",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
-      "versionCode": 10,
+      "versionCode": 11,
       "package": "com.oncusener.zenly",
       "backgroundColor": "#0D1019",
       "adaptiveIcon": {
