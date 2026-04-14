@@ -1,36 +1,35 @@
 {
   "expo": {
-    "name": "zenly",
+    "name": "zenly sleep",
     "slug": "zenly",
-    "version": "1.0.6",
+    "version": "1.0.10",
     "newArchEnabled": false,
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/icon-foreground.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#12151D"
     },
     "ios": {
       "supportsTablet": true,
+      "backgroundColor": "#12151D",
       "bundleIdentifier": "com.oncusener.zenly",
-      "buildNumber": "5",
+      "buildNumber": "10",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
+      "versionCode": 10,
+      "package": "com.oncusener.zenly",
+      "backgroundColor": "#0D1019",
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "newArchEnabled": false,
-        "versionCode": 6,
-        "foregroundImage": "./assets/android-icon-foreground.png",
-        "backgroundImage": "./assets/android-icon-background.png",
-        "monochromeImage": "./assets/android-icon-monochrome.png"
-      },
-      "predictiveBackGestureEnabled": false,
-      "package": "com.oncusener.zenly"
+        "foregroundImage": "./assets/icon-foreground.png",
+        "backgroundColor": "#0D1019"
+
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
