@@ -2,37 +2,36 @@
   "expo": {
     "name": "zenly sleep",
     "slug": "zenly",
-    "version": "1.0.15",
+    "version": "1.0.16",
     "newArchEnabled": false,
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/icon-foreground.png",
+      "image": "./assets/icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#12151D"
     },
     "ios": {
       "supportsTablet": true,
-      "backgroundColor": "#12151D",
+      "backgroundColor": "#0D1019",
       "bundleIdentifier": "com.oncusener.zenly",
-      "buildNumber": "15",
+      "buildNumber": "16",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
-      "versionCode": 15,
+      "versionCode": 16,
       "package": "com.oncusener.zenly",
       "backgroundColor": "#0D1019",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/icon-foreground.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#0D1019"
-
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/icon.png"
     },
     "extra": {
       "eas": {
@@ -47,7 +46,8 @@
           "androidAppId": "ca-app-pub-7987749549764501~6549232130",
           "iosAppId": "ca-app-pub-7987749549764501~9938806055"
         }
-      ]
+      ],
+      "expo-asset"
     ]
   }
 }
