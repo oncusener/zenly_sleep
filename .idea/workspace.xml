@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e12a4137-4d4b-43f0-88cc-8d06be81656c" name="Changes" comment="cancel butonuna basınca seçili sesler sıfırlandı ve bug fix x  butonu yeri güncellendi">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nodal-almanac-481016-u5-48effc5fe448.json" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;oncusener&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/oncusener/zenly_sleep.git&quot;,
+    &quot;accountId&quot;: &quot;7bbdc169-2f19-43d0-8a7b-aeccb761c7a5&quot;
+  }
+}</component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="3AsdssafZ8Xuk9oBXEn0ircIFU9" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;dev&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.ios (1).executor&quot;: &quot;Run&quot;,
+    &quot;npm.ios.executor&quot;: &quot;Run&quot;,
+    &quot;npm.start.executor&quot;: &quot;Run&quot;,
+    &quot;npm.web.executor&quot;: &quot;Run&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/firatoncusener/Desktop/DEVELOPMENT/zenly/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/components" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.start">
+    <configuration name="ios" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="ios" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="start" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="web" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="web" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.start" />
+        <item itemvalue="npm.web" />
+        <item itemvalue="npm.ios" />
+        <item itemvalue="npm.web" />
+        <item itemvalue="npm.start" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-WS-242.23339.15" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e12a4137-4d4b-43f0-88cc-8d06be81656c" name="Changes" comment="" />
+      <created>1773385421709</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1773385421709</updated>
+      <workItem from="1773385423038" duration="1949000" />
+      <workItem from="1773392841612" duration="719000" />
+      <workItem from="1773393564837" duration="966000" />
+      <workItem from="1773399258892" duration="10022000" />
+      <workItem from="1773412799033" duration="3668000" />
+      <workItem from="1774342172314" duration="44000" />
+      <workItem from="1774344986262" duration="19570000" />
+      <workItem from="1774506553209" duration="620000" />
+      <workItem from="1774595159375" duration="14203000" />
+      <workItem from="1774856135607" duration="9748000" />
+      <workItem from="1774946437449" duration="13073000" />
+      <workItem from="1775036434440" duration="9680000" />
+      <workItem from="1775479193557" duration="2475000" />
+      <workItem from="1775548463248" duration="890000" />
+      <workItem from="1775549847311" duration="3248000" />
+      <workItem from="1775565712835" duration="4100000" />
+      <workItem from="1775720476924" duration="6482000" />
+      <workItem from="1775821142980" duration="10441000" />
+      <workItem from="1776068123150" duration="3785000" />
+      <workItem from="1776099056684" duration="26580000" />
+      <workItem from="1776172210096" duration="941000" />
+      <workItem from="1776173560511" duration="4022000" />
+      <workItem from="1776237612951" duration="4050000" />
+      <workItem from="1776250231564" duration="912000" />
+      <workItem from="1776592430967" duration="3085000" />
+      <workItem from="1776595789421" duration="1022000" />
+      <workItem from="1776665140727" duration="227000" />
+      <workItem from="1776665441212" duration="1742000" />
+      <workItem from="1776700750856" duration="1042000" />
+      <workItem from="1776706864231" duration="692000" />
+      <workItem from="1777281847282" duration="51000" />
+      <workItem from="1777281917399" duration="30000" />
+      <workItem from="1777897686465" duration="4570000" />
+    </task>
+    <task id="LOCAL-00001" summary="ilk calisan sürüm">
+      <option name="closed" value="true" />
+      <created>1774603365355</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1774603365355</updated>
+    </task>
+    <task id="LOCAL-00002" summary="css ler ve temalar ayrıldı">
+      <option name="closed" value="true" />
+      <created>1774957079016</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1774957079016</updated>
+    </task>
+    <task id="LOCAL-00003" summary="yeni tasarım 2">
+      <option name="closed" value="true" />
+      <created>1775123316523</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1775123316523</updated>
+    </task>
+    <task id="LOCAL-00004" summary="z. ai deneme">
+      <option name="closed" value="true" />
+      <created>1775125777781</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1775125777781</updated>
+    </task>
+    <task id="LOCAL-00005" summary="yeni tasarım">
+      <option name="closed" value="true" />
+      <created>1775479315551</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1775479315551</updated>
+    </task>
+    <task id="LOCAL-00006" summary="yeni tasarım +">
+      <option name="closed" value="true" />
+      <created>1775479584970</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1775479584970</updated>
+    </task>
+    <task id="LOCAL-00007" summary="yeni tasarım ++">
+      <option name="closed" value="true" />
+      <created>1775480413841</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1775480413841</updated>
+    </task>
+    <task id="LOCAL-00008" summary="yeni tasarım ++">
+      <option name="closed" value="true" />
+      <created>1775565730066</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1775565730066</updated>
+    </task>
+    <task id="LOCAL-00009" summary="yeni tasarım ve arka plan">
+      <option name="closed" value="true" />
+      <created>1775724548132</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1775724548132</updated>
+    </task>
+    <task id="LOCAL-00010" summary="yeni tasarım ve arka plan+">
+      <option name="closed" value="true" />
+      <created>1775724819086</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1775724819086</updated>
+    </task>
+    <task id="LOCAL-00011" summary="yeni tasarım">
+      <option name="closed" value="true" />
+      <created>1775725818327</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1775725818327</updated>
+    </task>
+    <task id="LOCAL-00012" summary="yeni tasarım+">
+      <option name="closed" value="true" />
+      <created>1775726212504</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1775726212504</updated>
+    </task>
+    <task id="LOCAL-00013" summary="android reklamlı test">
+      <option name="closed" value="true" />
+      <created>1775827029095</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1775827029095</updated>
+    </task>
+    <task id="LOCAL-00014" summary="android reklamlı test-andorid build 6">
+      <option name="closed" value="true" />
+      <created>1775827068930</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1775827068930</updated>
+    </task>
+    <task id="LOCAL-00015" summary="env acıldı">
+      <option name="closed" value="true" />
+      <created>1775999709030</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1775999709030</updated>
+    </task>
+    <task id="LOCAL-00016" summary="icon düzeltme">
+      <option name="closed" value="true" />
+      <created>1776158301998</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1776158301998</updated>
+    </task>
+    <task id="LOCAL-00017" summary="11">
+      <option name="closed" value="true" />
+      <created>1776158425230</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1776158425230</updated>
+    </task>
+    <task id="LOCAL-00018" summary="11-pre">
+      <option name="closed" value="true" />
+      <created>1776162629090</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1776162629090</updated>
+    </task>
+    <task id="LOCAL-00019" summary="version 15">
+      <option name="closed" value="true" />
+      <created>1776165856242</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1776165856242</updated>
+    </task>
+    <task id="LOCAL-00020" summary="ios id eklendi">
+      <option name="closed" value="true" />
+      <created>1776207840063</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1776207840063</updated>
+    </task>
+    <task id="LOCAL-00021" summary="bug fix 19.04.2026">
+      <option name="closed" value="true" />
+      <created>1776595531134</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1776595531134</updated>
+    </task>
+    <task id="LOCAL-00022" summary="app-text eklendi">
+      <option name="closed" value="true" />
+      <created>1776665177221</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1776665177221</updated>
+    </task>
+    <task id="LOCAL-00023" summary="cancel butonuna basınca seçili sesler sıfırlandı ve bug fix x  butonu yeri güncellendi">
+      <option name="closed" value="true" />
+      <created>1777898619900</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1777898619900</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="ilk calisan sürüm" />
+    <MESSAGE value="css ler ve temalar ayrıldı" />
+    <MESSAGE value="yeni tasarım 2" />
+    <MESSAGE value="z. ai deneme" />
+    <MESSAGE value="yeni tasarım +" />
+    <MESSAGE value="yeni tasarım ++" />
+    <MESSAGE value="yeni tasarım ve arka plan" />
+    <MESSAGE value="yeni tasarım ve arka plan+" />
+    <MESSAGE value="yeni tasarım" />
+    <MESSAGE value="yeni tasarım+" />
+    <MESSAGE value="android reklamlı test" />
+    <MESSAGE value="android reklamlı test-andorid build 6" />
+    <MESSAGE value="env acıldı" />
+    <MESSAGE value="icon düzeltme" />
+    <MESSAGE value="11" />
+    <MESSAGE value="11-pre" />
+    <MESSAGE value="version 15" />
+    <MESSAGE value="ios id eklendi" />
+    <MESSAGE value="bug fix 19.04.2026" />
+    <MESSAGE value="app-text eklendi" />
+    <MESSAGE value="cancel butonuna basınca seçili sesler sıfırlandı ve bug fix x  butonu yeri güncellendi" />
+    <option name="LAST_COMMIT_MESSAGE" value="cancel butonuna basınca seçili sesler sıfırlandı ve bug fix x  butonu yeri güncellendi" />
+  </component>
+</project>
