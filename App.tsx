@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { AD_UNIT_ID_PROD } from '@env';
 import {
     View, Text, TouchableOpacity, ScrollView,
@@ -161,18 +161,33 @@ function SoundCard({
                     backgroundColor: 'rgba(0,0,0,0.45)',
                 }]} />
                 <View style={s.activeInner}>
-                    <View style={s.activeHeader}>
-                        <Text style={[s.cardNameActive, { color: accent }]} numberOfLines={1}>
+                    <View style={[s.activeHeader, { alignItems: 'center' }]}>
+                        <Text
+                            style={[s.cardNameActive, { color: accent, flex: 1 }]}
+                            numberOfLines={1}
+                        >
                             {sound.name.toUpperCase()}
                         </Text>
-                        <Text style={[s.cardVol, { color: accent }]}>
+                        <Text style={[s.cardVol, { color: accent, marginRight: 8 }]}>
                             {Math.round(volume * 100)}%
                         </Text>
                         <TouchableOpacity
                             onPress={onToggle}
-                            hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                            activeOpacity={0.7}
+                            style={{
+                                width: 28,
+                                height: 28,
+                                borderRadius: 14,
+                                backgroundColor: accent + '25',
+                                borderWidth: 1,
+                                borderColor: accent + '55',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                            }}
                         >
-                            <Text style={[s.closeBtn, { color: accent + 'cc' }]}>X</Text>
+                            <Text style={{ color: accent, fontSize: 12, fontWeight: '700', lineHeight: 14 }}>
+                                ✕
+                            </Text>
                         </TouchableOpacity>
                     </View>
                     <Slider
@@ -218,7 +233,6 @@ function SoundCard({
 }
 
 // ── SleepScreen ───────────────────────────────────────────────────────────────
-// (Orijinal kodunla aynı — dokunulmadı)
 
 function SleepScreen() {
     const {
@@ -315,6 +329,7 @@ function SleepScreen() {
         fadeInterval.current = null;
         setTimerActive(false);
         setRemaining(0);
+        clearAll();
     }
 
     return (
@@ -409,6 +424,7 @@ function SleepScreen() {
                         ))}
                     </View>
                 </View>
+
                 <View style={{ alignItems: 'center', marginTop: 20, marginBottom: 10 }}>
                     <BannerAd
                         unitId={adUnitId}
@@ -416,6 +432,7 @@ function SleepScreen() {
                         requestOptions={{ requestNonPersonalizedAdsOnly: true }}
                     />
                 </View>
+
                 <View style={s.section}>
                     <Text style={s.sectionLabel}>SLEEP TIMER</Text>
                     <View style={s.timerRow}>
@@ -447,6 +464,7 @@ function SleepScreen() {
                     {timerActive && <Text style={s.fadeNote}>AUTOMATIC FADE-OUT ENABLED</Text>}
                 </View>
             </ScrollView>
+
             <View style={{ alignItems: 'center', marginTop: 20, marginBottom: 10 }}>
                 <BannerAd
                     unitId={adUnitId}
@@ -454,6 +472,7 @@ function SleepScreen() {
                     requestOptions={{ requestNonPersonalizedAdsOnly: true }}
                 />
             </View>
+
             {activeMix ? (
                 hasChanges && (
                     <View style={s.bottomBar}>
@@ -475,13 +494,11 @@ function SleepScreen() {
                 onClose={() => setSaveModalVisible(false)}
                 onSave={(name) => saveMix(name)}
             />
-
         </View>
     );
 }
 
 // ── MainApp ───────────────────────────────────────────────────────────────────
-// Tab navigator ayrı component'a çıkarıldı — splash sonrası render edilir
 
 function MainApp() {
     return (
@@ -515,9 +532,6 @@ function MainApp() {
 }
 
 // ── App ───────────────────────────────────────────────────────────────────────
-// ↓ Tek değişiklik: showSplash state ile SplashScreen → MainApp geçişi
-
-import { useRef, useEffect, useMemo } from 'react';
 
 export default function App() {
     const [showSplash, setShowSplash] = useState(true);
