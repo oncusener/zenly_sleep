@@ -47,7 +47,6 @@ export const useSoundStore = create<SoundStore>()(
                 set((state) => ({
                     volumes: { ...state.volumes, [id]: volume },
                 })),
-
             clearAll: () => set({ activeSounds: [], activeMixId: null, volumes: {} }),
 
 
