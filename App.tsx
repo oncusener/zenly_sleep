@@ -346,6 +346,7 @@ function SleepScreen() {
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ paddingBottom: 120 }}
             >
+                {/* ── SAVED MIXES ─────────────────────────────────────────────── */}
                 {savedMixes.length > 0 && (
                     <View style={s.section}>
                         <Text style={s.sectionLabel}>SAVED MIXES</Text>
@@ -357,7 +358,12 @@ function SleepScreen() {
                         >
                             {savedMixes.map((mix) => {
                                 const isActive = activeMixId === mix.id;
+
+                                // Karışımın içindeki ilk sesi bulup dynamic accent rengini ve imajını alıyoruz
+                                const firstSoundData = SOUNDS.find((snd) => snd.id === mix.sounds[0]?.id);
                                 const accent = SOUND_COLORS[mix.sounds[0]?.id ?? 'rain'] ?? '#98a9ff';
+                                const mixImage = firstSoundData?.image;
+
                                 return (
                                     <TouchableOpacity
                                         key={mix.id}
@@ -366,9 +372,22 @@ function SleepScreen() {
                                         onLongPress={() => handleDeleteMix(mix)}
                                         activeOpacity={0.85}
                                     >
-                                        <View style={[StyleSheet.absoluteFill, {
-                                            backgroundColor: accent + '18', borderRadius: 22,
-                                        }]} />
+                                        {/* Karışımın ilk sesine ait görsel varsa arka plana basıyoruz */}
+                                        {mixImage ? (
+                                            <>
+                                                <Image
+                                                    source={mixImage}
+                                                    style={[StyleSheet.absoluteFill, { borderRadius: 22, opacity: isActive ? 0.45 : 0.22 }]}
+                                                    resizeMode="cover"
+                                                />
+                                                <View style={[StyleSheet.absoluteFill, { borderRadius: 22, backgroundColor: 'rgba(0,0,0,0.25)' }]} />
+                                            </>
+                                        ) : (
+                                            <View style={[StyleSheet.absoluteFill, {
+                                                backgroundColor: accent + '18', borderRadius: 22,
+                                            }]} />
+                                        )}
+
                                         {isActive && (
                                             <View style={s.mixCheck}>
                                                 <Text style={{ color: '#98a9ff', fontSize: 12 }}>✓</Text>
