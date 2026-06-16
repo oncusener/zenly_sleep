@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e12a4137-4d4b-43f0-88cc-8d06be81656c" name="Changes" comment="cancel butonuna basınca seçili sesler sıfırlandı ve bug fix x  butonu yeri güncellendi ++">
+    <list default="true" id="e12a4137-4d4b-43f0-88cc-8d06be81656c" name="Changes" comment="Optimized rendering performance for saved user sound mixes. Integrated dynamic background artwork matching for custom audio profiles. Fixed intermittent state synchronizations in the sound board grid layout and resolved minor UI layout bugs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/AudioProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/AudioProvider.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -155,7 +157,9 @@
       <workItem from="1777281847282" duration="51000" />
       <workItem from="1777281917399" duration="30000" />
       <workItem from="1777897686465" duration="8838000" />
-      <workItem from="1779190055311" duration="188000" />
+      <workItem from="1779190055311" duration="687000" />
+      <workItem from="1779190813550" duration="2239000" />
+      <workItem from="1781615521932" duration="891000" />
     </task>
     <task id="LOCAL-00001" summary="ilk calisan sürüm">
       <option name="closed" value="true" />
@@ -357,7 +361,15 @@
       <option name="project" value="LOCAL" />
       <updated>1777969365328</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Optimized rendering performance for saved user sound mixes. Integrated dynamic background artwork matching for custom audio profiles. Fixed intermittent state synchronizations in the sound board grid layout and resolved minor UI layout bugs">
+      <option name="closed" value="true" />
+      <created>1779190270515</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1779190270515</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -398,6 +410,7 @@
     <MESSAGE value="cancel butonuna basınca seçili sesler sıfırlandı ve bug fix x  butonu yeri güncellendi" />
     <MESSAGE value="cancel butonuna basınca seçili sesler sıfırlandı ve bug fix x  butonu yeri güncellendi +" />
     <MESSAGE value="cancel butonuna basınca seçili sesler sıfırlandı ve bug fix x  butonu yeri güncellendi ++" />
-    <option name="LAST_COMMIT_MESSAGE" value="cancel butonuna basınca seçili sesler sıfırlandı ve bug fix x  butonu yeri güncellendi ++" />
+    <MESSAGE value="Optimized rendering performance for saved user sound mixes. Integrated dynamic background artwork matching for custom audio profiles. Fixed intermittent state synchronizations in the sound board grid layout and resolved minor UI layout bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Optimized rendering performance for saved user sound mixes. Integrated dynamic background artwork matching for custom audio profiles. Fixed intermittent state synchronizations in the sound board grid layout and resolved minor UI layout bugs" />
   </component>
 </project>
