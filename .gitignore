@@ -31,7 +31,15 @@ yarn-error.*
 *.pem
 
 # local env files
+.env
 .env*.local
+
+# service account / credential dosyalari — ASLA commit edilmemeli
+*service-account*.json
+*serviceaccount*.json
+nodal-almanac-*.json
+google-services.json
+GoogleService-Info.plist
 
 # typescript
 *.tsbuildinfo

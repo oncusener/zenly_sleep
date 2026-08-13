@@ -1,0 +1,14 @@
+{
+  "_comment": "Zorunlu guncelleme icin uzak yapilandirma. Uygulama acilista okur. minVersion'in altindaki surumler kapatilamaz ekran gorur; latestVersion'in altindakiler kapatilabilir uyari gorur. Bu dosyaya ulasilamazsa uygulama normal calisir (fail-open). raw.githubusercontent.com ~5 dk cache'ler, degisiklik hemen yansimayabilir.",
+
+  "android": {
+    "minVersion": "1.0.20",
+    "latestVersion": "1.0.20",
+    "storeUrl": "https://play.google.com/store/apps/details?id=com.oncusener.zenly"
+  },
+  "ios": {
+    "minVersion": "1.0.20",
+    "latestVersion": "1.0.20",
+    "storeUrl": "https://apps.apple.com/app/id0000000000"
+  }
+}
