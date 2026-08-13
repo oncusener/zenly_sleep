@@ -6,18 +6,22 @@
   "build": {
     "development": {
       "developmentClient": true,
+      "environment": "development",
       "android": {
         "buildType": "apk"
       },
       "distribution": "internal"
     },
     "preview": {
+      "environment": "preview",
       "distribution": "internal"
     },
     "production": {
+      "environment": "production",
       "android": {
         "buildType": "app-bundle"
-      }    }
+      }
+    }
   },
   "submit": {
     "production": {}
