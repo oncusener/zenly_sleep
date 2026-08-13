@@ -7,12 +7,10 @@ import {
     Dimensions,
     StatusBar,
 } from 'react-native';
-import {
-    InterstitialAd,
-    AdEventType,
-    TestIds,
-    BannerAd, BannerAdSize
-} from 'react-native-google-mobile-ads';
+import { InterstitialAd, AdEventType } from 'react-native-google-mobile-ads';
+import { interstitialAdUnitId } from './constants/ads';
+import AdBanner from './components/AdBanner';
+import { currentVersion } from './utils/versionCheck';
 
 const { width, height } = Dimensions.get('window');
 
@@ -26,14 +24,13 @@ const COLORS = {
     DOTS: '#F4D35E',
 };
 
-const AD_UNIT_ID = process.env.EXPO_PUBLIC_ANDROID_INTERSTITIAL_ID;
-const BANNER_ID = process.env.EXPO_PUBLIC_ANDROID_BANNER_ID;
-const interstitialId = __DEV__ ? TestIds.INTERSTITIAL : AD_UNIT_ID;
-const bannerId = __DEV__ ? TestIds.BANNER : BANNER_ID;
-
-const interstitial = InterstitialAd.createForAdRequest(interstitialId, {
-    requestNonPersonalizedAdsOnly: true,
-});
+// O platform için geçiş reklamı birimi tanımlı değilse hiç oluşturma —
+// splash yine de normal akışında ilerler.
+const interstitial = interstitialAdUnitId
+    ? InterstitialAd.createForAdRequest(interstitialAdUnitId, {
+        requestNonPersonalizedAdsOnly: true,
+    })
+    : null;
 
 const STARS = [
     { x: 0.08, y: 0.06, size: 2,   op: 0.6 },
@@ -75,6 +72,7 @@ export default function SplashScreen({ onFinish }: Props) {
     }
 
     useEffect(() => {
+        if (!interstitial) { adDone.current = true; return; }
         const unsubLoaded = interstitial.addAdEventListener(AdEventType.LOADED, () => {
             setAdLoaded(true);
         });
@@ -103,7 +101,7 @@ export default function SplashScreen({ onFinish }: Props) {
 
         const timer = setTimeout(() => {
             splashDone.current = true;
-            if (adLoaded && !adShownRef.current) {
+            if (interstitial && adLoaded && !adShownRef.current) {
                 adShownRef.current = true;
                 interstitial.show();
             } else {
@@ -166,14 +164,10 @@ export default function SplashScreen({ onFinish }: Props) {
             </Animated.View>
 
             <View style={styles.bannerPos}>
-                <BannerAd
-                    unitId={bannerId}
-                    size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-                    requestOptions={{ requestNonPersonalizedAdsOnly: true }}
-                />
+                <AdBanner />
             </View>
 
-            <Text style={styles.version}>v1.0.10</Text>
+            <Text style={styles.version}>v{currentVersion}</Text>
         </View>
     );
 }

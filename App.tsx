@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
-import { AD_UNIT_ID_PROD } from '@env';
 import {
     View, Text, TouchableOpacity, ScrollView,
     StatusBar, Image, Alert, TextInput, Modal, StyleSheet, ImageBackground,
@@ -11,9 +10,9 @@ import Slider from '@react-native-community/slider';
 import { useSoundStore, SavedMix } from './stores/soundStore';
 import { SOUNDS } from './constants/sounds';
 import AudioProvider from './components/AudioProvider';
+import AdBanner from './components/AdBanner';
+import UpdateGate from './components/UpdateGate';
 import { s, m, p } from './styles/app.styles';
-import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
-const adUnitId = __DEV__ ? TestIds.BANNER : AD_UNIT_ID_PROD;
 import SplashScreen from './SplashScreen';
 
 const Tab = createBottomTabNavigator();
@@ -421,13 +420,7 @@ function SleepScreen() {
                             </TouchableOpacity>
                         )}
                     </View>
-                    <View style={{ alignItems: 'center', marginVertical: 10 }}>
-                        <BannerAd
-                            unitId={adUnitId}
-                            size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-                            requestOptions={{ requestNonPersonalizedAdsOnly: true }}
-                        />
-                    </View>
+                    <AdBanner />
                     <View style={s.soundGrid}>
                         {SOUNDS.map((sound) => (
                             <SoundCard
@@ -444,13 +437,7 @@ function SleepScreen() {
                     </View>
                 </View>
 
-                <View style={{ alignItems: 'center', marginTop: 20, marginBottom: 10 }}>
-                    <BannerAd
-                        unitId={adUnitId}
-                        size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-                        requestOptions={{ requestNonPersonalizedAdsOnly: true }}
-                    />
-                </View>
+                <AdBanner style={{ marginTop: 20, marginBottom: 10 }} />
 
                 <View style={s.section}>
                     <Text style={s.sectionLabel}>SLEEP TIMER</Text>
@@ -484,13 +471,7 @@ function SleepScreen() {
                 </View>
             </ScrollView>
 
-            <View style={{ alignItems: 'center', marginTop: 20, marginBottom: 10 }}>
-                <BannerAd
-                    unitId={adUnitId}
-                    size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-                    requestOptions={{ requestNonPersonalizedAdsOnly: true }}
-                />
-            </View>
+            <AdBanner style={{ marginTop: 20, marginBottom: 10 }} />
 
             {activeMix ? (
                 hasChanges && (
@@ -555,7 +536,11 @@ function MainApp() {
 export default function App() {
     const [showSplash, setShowSplash] = useState(true);
 
-    return showSplash
-        ? <SplashScreen onFinish={() => setShowSplash(false)} />
-        : <MainApp />;
+    return (
+        <UpdateGate>
+            {showSplash
+                ? <SplashScreen onFinish={() => setShowSplash(false)} />
+                : <MainApp />}
+        </UpdateGate>
+    );
 }

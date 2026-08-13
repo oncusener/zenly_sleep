@@ -2,7 +2,7 @@
   "expo": {
     "name": "zenly sleep",
     "slug": "zenly",
-    "version": "1.0.19",
+    "version": "1.0.20",
     "newArchEnabled": false,
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -16,13 +16,13 @@
       "supportsTablet": true,
       "backgroundColor": "#0D1019",
       "bundleIdentifier": "com.oncusener.zenly",
-      "buildNumber": "20",
+      "buildNumber": "21",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
-      "versionCode": 20,
+      "versionCode": 21,
       "package": "com.oncusener.zenly",
       "backgroundColor": "#0D1019",
       "adaptiveIcon": {
@@ -44,7 +44,8 @@
         "react-native-google-mobile-ads",
         {
           "androidAppId": "ca-app-pub-7987749549764501~6549232130",
-          "iosAppId": "ca-app-pub-7987749549764501~9938806055"
+          "iosAppId": "ca-app-pub-7987749549764501~9938806055",
+          "userTrackingUsageDescription": "Bu izin, sana daha alakalı reklamlar gösterebilmemiz için kullanılır."
         }
       ],
       "expo-asset"

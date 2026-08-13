@@ -4,10 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e12a4137-4d4b-43f0-88cc-8d06be81656c" name="Changes" comment="Optimized rendering performance for saved user sound mixes. Integrated dynamic background artwork matching for custom audio profiles. Fixed intermittent state synchronizations in the sound board grid layout and resolved minor UI layout bugs">
+    <list default="true" id="e12a4137-4d4b-43f0-88cc-8d06be81656c" name="Changes" comment="ses kesilmesi problemi çözüldü build 20">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SplashScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/SplashScreen.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/AudioProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/AudioProvider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,7 +164,9 @@
       <workItem from="1777897686465" duration="8838000" />
       <workItem from="1779190055311" duration="687000" />
       <workItem from="1779190813550" duration="2239000" />
-      <workItem from="1781615521932" duration="891000" />
+      <workItem from="1781615521932" duration="7024000" />
+      <workItem from="1786628841323" duration="71000" />
+      <workItem from="1786631829744" duration="1205000" />
     </task>
     <task id="LOCAL-00001" summary="ilk calisan sürüm">
       <option name="closed" value="true" />
@@ -369,7 +376,15 @@
       <option name="project" value="LOCAL" />
       <updated>1779190270515</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="ses kesilmesi problemi çözüldü build 20">
+      <option name="closed" value="true" />
+      <created>1781616424559</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1781616424559</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -411,6 +426,7 @@
     <MESSAGE value="cancel butonuna basınca seçili sesler sıfırlandı ve bug fix x  butonu yeri güncellendi +" />
     <MESSAGE value="cancel butonuna basınca seçili sesler sıfırlandı ve bug fix x  butonu yeri güncellendi ++" />
     <MESSAGE value="Optimized rendering performance for saved user sound mixes. Integrated dynamic background artwork matching for custom audio profiles. Fixed intermittent state synchronizations in the sound board grid layout and resolved minor UI layout bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="Optimized rendering performance for saved user sound mixes. Integrated dynamic background artwork matching for custom audio profiles. Fixed intermittent state synchronizations in the sound board grid layout and resolved minor UI layout bugs" />
+    <MESSAGE value="ses kesilmesi problemi çözüldü build 20" />
+    <option name="LAST_COMMIT_MESSAGE" value="ses kesilmesi problemi çözüldü build 20" />
   </component>
 </project>
