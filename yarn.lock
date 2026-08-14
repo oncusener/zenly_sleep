@@ -2426,6 +2426,11 @@ expo-structured-headers@~55.0.2:
   resolved "https://registry.yarnpkg.com/expo-structured-headers/-/expo-structured-headers-55.0.2.tgz#02705fae72add7bb91859d4c91ef38b07eefa676"
   integrity sha512-KITovrWigTOtsII5hRQ9/3ydaNcxCux5g6O+eTPLyjnye9dpkDKl5GmCLVPVKIL/d7253OtbGtWMD4m0gha5pw==
 
+expo-tracking-transparency@~55.0.16:
+  version "55.0.16"
+  resolved "https://registry.yarnpkg.com/expo-tracking-transparency/-/expo-tracking-transparency-55.0.16.tgz#771e40907f0fa9f4c210d6bac48e3f7fead86502"
+  integrity sha512-yCNl9GZXMdp7Ayqh4dX8UlnDDTDny4xmVKtzZJEJeqtyYzQlJfWbzqHDj+gL/VXEfB5DkHmBBuNuJGFck0cfBw==
+
 expo-updates-interface@~55.1.5:
   version "55.1.5"
   resolved "https://registry.npmjs.org/expo-updates-interface/-/expo-updates-interface-55.1.5.tgz"

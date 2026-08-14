@@ -44,11 +44,16 @@
         "react-native-google-mobile-ads",
         {
           "androidAppId": "ca-app-pub-7987749549764501~6549232130",
-          "iosAppId": "ca-app-pub-7987749549764501~9938806055",
-          "userTrackingUsageDescription": "Bu izin, sana daha alakalı reklamlar gösterebilmemiz için kullanılır."
+          "iosAppId": "ca-app-pub-7987749549764501~9938806055"
         }
       ],
-      "expo-asset"
+      "expo-asset",
+      [
+        "expo-tracking-transparency",
+        {
+          "userTrackingPermission": "Reklamların ilgi alanlarına göre gösterilebilmesi için cihaz tanımlayıcın kullanılır. İzin vermezsen uygulama aynı şekilde çalışır, reklamlar yalnızca kişiselleştirilmez."
+        }
+      ]
     ]
   }
 }

@@ -12,6 +12,7 @@ import { SOUNDS } from './constants/sounds';
 import AudioProvider from './components/AudioProvider';
 import AdBanner from './components/AdBanner';
 import UpdateGate from './components/UpdateGate';
+import { initConsent } from './utils/consent';
 import { s, m, p } from './styles/app.styles';
 import SplashScreen from './SplashScreen';
 
@@ -535,6 +536,9 @@ function MainApp() {
 
 export default function App() {
     const [showSplash, setShowSplash] = useState(true);
+
+    // Reklam onayı (UMP + iOS ATT). Akış bitene kadar hiç reklam istenmez.
+    useEffect(() => { initConsent(); }, []);
 
     return (
         <UpdateGate>
