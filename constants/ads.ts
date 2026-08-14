@@ -25,8 +25,10 @@ export const bannerAdUnitId = resolve(
     TestIds.BANNER,
 );
 
-export const interstitialAdUnitId = resolve(
-    process.env.EXPO_PUBLIC_IOS_INTERSTITIAL_ID,
-    process.env.EXPO_PUBLIC_ANDROID_INTERSTITIAL_ID,
-    TestIds.INTERSTITIAL,
-);
+// Geçiş (interstitial) reklamı şu an hiçbir yerde kullanılmıyor: splash'teki
+// tam ekran reklam kaldırıldı. İleride eklenirse buradan türetilebilir:
+//   export const interstitialAdUnitId = resolve(
+//       process.env.EXPO_PUBLIC_IOS_INTERSTITIAL_ID,
+//       process.env.EXPO_PUBLIC_ANDROID_INTERSTITIAL_ID,
+//       TestIds.INTERSTITIAL,
+//   );

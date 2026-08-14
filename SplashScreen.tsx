@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
     View,
     Text,
@@ -7,8 +7,6 @@ import {
     Dimensions,
     StatusBar,
 } from 'react-native';
-import { InterstitialAd, AdEventType } from 'react-native-google-mobile-ads';
-import { interstitialAdUnitId } from './constants/ads';
 import AdBanner from './components/AdBanner';
 import { currentVersion } from './utils/versionCheck';
 
@@ -24,13 +22,7 @@ const COLORS = {
     DOTS: '#F4D35E',
 };
 
-// O platform için geçiş reklamı birimi tanımlı değilse hiç oluşturma —
-// splash yine de normal akışında ilerler.
-const interstitial = interstitialAdUnitId
-    ? InterstitialAd.createForAdRequest(interstitialAdUnitId, {
-        requestNonPersonalizedAdsOnly: true,
-    })
-    : null;
+const SPLASH_MS = 2500;
 
 const STARS = [
     { x: 0.08, y: 0.06, size: 2,   op: 0.6 },
@@ -60,35 +52,6 @@ export default function SplashScreen({ onFinish }: Props) {
     const dot2Opacity  = useRef(new Animated.Value(0.25)).current;
     const dot3Opacity  = useRef(new Animated.Value(0.25)).current;
 
-    const [adLoaded, setAdLoaded] = useState(false);
-    const adShownRef   = useRef(false);
-    const splashDone   = useRef(false);
-    const adDone       = useRef(false);
-
-    function tryFinish() {
-        if (splashDone.current && adDone.current) {
-            onFinish();
-        }
-    }
-
-    useEffect(() => {
-        if (!interstitial) { adDone.current = true; return; }
-        const unsubLoaded = interstitial.addAdEventListener(AdEventType.LOADED, () => {
-            setAdLoaded(true);
-        });
-        const unsubClosed = interstitial.addAdEventListener(AdEventType.CLOSED, () => {
-            adDone.current = true;
-            tryFinish();
-        });
-        const unsubError = interstitial.addAdEventListener(AdEventType.ERROR, () => {
-            adDone.current = true;
-            tryFinish();
-        });
-
-        interstitial.load();
-        return () => { unsubLoaded(); unsubClosed(); unsubError(); };
-    }, []);
-
     useEffect(() => {
         Animated.parallel([
             Animated.timing(logoOpacity, { toValue: 1, duration: 700, useNativeDriver: true }),
@@ -99,22 +62,9 @@ export default function SplashScreen({ onFinish }: Props) {
             });
         });
 
-        const timer = setTimeout(() => {
-            splashDone.current = true;
-            if (interstitial && adLoaded && !adShownRef.current) {
-                adShownRef.current = true;
-                interstitial.show();
-            } else {
-                const fallback = setTimeout(() => {
-                    adDone.current = true;
-                    tryFinish();
-                }, 1200);
-                return () => clearTimeout(fallback);
-            }
-        }, 2500);
-
+        const timer = setTimeout(onFinish, SPLASH_MS);
         return () => clearTimeout(timer);
-    }, [adLoaded]);
+    }, []);
 
     function animateDots() {
         const pulse = (anim: Animated.Value, delay: number) =>
