@@ -1394,6 +1394,11 @@
   resolved "https://registry.yarnpkg.com/@react-native/js-polyfills/-/js-polyfills-0.83.4.tgz#63244c915773d39bfc56527c1a062054db0c01dd"
   integrity sha512-wYUdv0rt4MjhKhQloO1AnGDXhZQOFZHDxm86dEtEA0WcsCdVrFdRULFM+rKUC/QQtJW2rS6WBqtBusgtrsDADg==
 
+"@react-native/normalize-colors@0.83.10":
+  version "0.83.10"
+  resolved "https://registry.yarnpkg.com/@react-native/normalize-colors/-/normalize-colors-0.83.10.tgz#231d542e5b409d280230cfdd3274eecd68d196b4"
+  integrity sha512-dWgqcxaBy27oLx9tndcTF0917vbLOOstyNjYD58J6Z7YxkEZSaKG6+A+3I1KV6O1Xg2D69QThp4t6ezoC3NiGA==
+
 "@react-native/normalize-colors@0.83.4":
   version "0.83.4"
   resolved "https://registry.yarnpkg.com/@react-native/normalize-colors/-/normalize-colors-0.83.4.tgz#211fd38a7f067ede9eeace504f0e45c090a383d4"
@@ -2425,6 +2430,14 @@ expo-structured-headers@~55.0.2:
   version "55.0.2"
   resolved "https://registry.yarnpkg.com/expo-structured-headers/-/expo-structured-headers-55.0.2.tgz#02705fae72add7bb91859d4c91ef38b07eefa676"
   integrity sha512-KITovrWigTOtsII5hRQ9/3ydaNcxCux5g6O+eTPLyjnye9dpkDKl5GmCLVPVKIL/d7253OtbGtWMD4m0gha5pw==
+
+expo-system-ui@~55.0.20:
+  version "55.0.20"
+  resolved "https://registry.yarnpkg.com/expo-system-ui/-/expo-system-ui-55.0.20.tgz#436219d6b525a3f973f7b77a603f4a064ae19345"
+  integrity sha512-XpfnBhB7Jbj4QjqzLVFXekQWsc98lhowiA7yNNk5bj+U9iIpXjw+oK7tqUisT0eeScKpT5jY5QaffZFeUtDA3g==
+  dependencies:
+    "@react-native/normalize-colors" "0.83.10"
+    debug "^4.3.2"
 
 expo-tracking-transparency@~55.0.16:
   version "55.0.16"
