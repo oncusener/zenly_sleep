@@ -47,3 +47,8 @@ GoogleService-Info.plist
 # generated native folders
 /ios
 /android
+
+# derleme ciktilari — artefakt, kaynak degil
+*.aab
+*.apk
+*.ipa

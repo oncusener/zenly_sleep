@@ -1,0 +1,62 @@
+# EAS Build arsivine NELERIN girmeyecegini belirler.
+#
+# DIKKAT: bu dosya varsa EAS .gitignore'u tamamen yok sayar. Bu yuzden
+# .gitignore'daki her satir burada da tekrarlanmak zorunda — yoksa
+# node_modules veya yerel native klasorler arsive girer.
+
+# ── .gitignore ile ayni ───────────────────────────────────────────────────────
+node_modules/
+
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+
+.kotlin/
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+.metro-health-check*
+
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+.DS_Store
+*.pem
+
+.env
+.env*.local
+
+*service-account*.json
+*serviceaccount*.json
+nodal-almanac-*.json
+google-services.json
+GoogleService-Info.plist
+
+*.tsbuildinfo
+
+# Yerel native klasorler. EAS prebuild'i kendisi calistirir; bunlar
+# yuklenirse ESKI bundle id ile derlenir.
+/ios
+/android
+
+# ── EAS'e ozel: build icin gereksiz olanlar ───────────────────────────────────
+
+# Derleme ciktilari. Kaynak degil, artefakt.
+application-*.aab
+*.aab
+*.apk
+*.ipa
+
+# Magaza gorselleri ve calisma dosyalari
+appstore-screenshots/
+picssss/
+
+# IDE
+.idea/
+.vscode/

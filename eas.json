@@ -18,6 +18,7 @@
     },
     "production": {
       "environment": "production",
+      "autoIncrement": true,
       "android": {
         "buildType": "app-bundle"
       }
@@ -27,7 +28,7 @@
     "production": {
       "android": {
         "serviceAccountKeyPath": "./nodal-almanac-481016-u5-ac8328793970.json",
-        "track": "internal"
+        "track": "production"
       },
       "ios": {
         "ascAppId": "6805360255"

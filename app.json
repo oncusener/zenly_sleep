@@ -16,13 +16,13 @@
       "supportsTablet": true,
       "backgroundColor": "#0D1019",
       "bundleIdentifier": "com.oncusener.zenly.ios",
-      "buildNumber": "22",
+      "buildNumber": "23",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
-      "versionCode": 21,
+      "versionCode": 23,
       "package": "com.oncusener.zenly",
       "backgroundColor": "#0D1019",
       "adaptiveIcon": {
@@ -45,7 +45,9 @@
         {
           "androidAppId": "ca-app-pub-7987749549764501~6549232130",
           "iosAppId": "ca-app-pub-7987749549764501~3046655062",
-          "skAdNetworkItems": ["cstr6suwn9.skadnetwork"]
+          "skAdNetworkItems": [
+            "cstr6suwn9.skadnetwork"
+          ]
         }
       ],
       "expo-asset",
