@@ -28,6 +28,9 @@
       "android": {
         "serviceAccountKeyPath": "./nodal-almanac-481016-u5-ac8328793970.json",
         "track": "internal"
+      },
+      "ios": {
+        "ascAppId": "6805360255"
       }
     }
   }

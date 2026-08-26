@@ -15,7 +15,7 @@
     "ios": {
       "supportsTablet": true,
       "backgroundColor": "#0D1019",
-      "bundleIdentifier": "com.oncusener.zenly",
+      "bundleIdentifier": "com.oncusener.zenly.ios",
       "buildNumber": "21",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
@@ -44,7 +44,7 @@
         "react-native-google-mobile-ads",
         {
           "androidAppId": "ca-app-pub-7987749549764501~6549232130",
-          "iosAppId": "ca-app-pub-7987749549764501~9938806055",
+          "iosAppId": "ca-app-pub-7987749549764501~3046655062",
           "skAdNetworkItems": ["cstr6suwn9.skadnetwork"]
         }
       ],
