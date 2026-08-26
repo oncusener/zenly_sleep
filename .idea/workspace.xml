@@ -4,8 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e12a4137-4d4b-43f0-88cc-8d06be81656c" name="Changes" comment="ses kesilmesi problemi çözüldü build 20">
+    <list default="true" id="e12a4137-4d4b-43f0-88cc-8d06be81656c" name="Changes" comment="ios için fix">
+      <change afterPath="$PROJECT_DIR$/assets/sounds/bus_noise.m4a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/sounds/fire.m4a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/sounds/forest.m4a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/sounds/rain.m4a" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/sounds/street.m4a" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/constants/sounds.ts" beforeDir="false" afterPath="$PROJECT_DIR$/constants/sounds.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,6 +171,8 @@
       <workItem from="1786714938575" duration="15000" />
       <workItem from="1786717184355" duration="10000" />
       <workItem from="1786776427563" duration="9000" />
+      <workItem from="1787734074814" duration="31000" />
+      <workItem from="1787746301879" duration="475000" />
     </task>
     <task id="LOCAL-00001" summary="ilk calisan sürüm">
       <option name="closed" value="true" />
@@ -381,7 +390,15 @@
       <option name="project" value="LOCAL" />
       <updated>1781616424559</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="ios için fix">
+      <option name="closed" value="true" />
+      <created>1787734090527</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1787734090527</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -399,7 +416,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="ilk calisan sürüm" />
     <MESSAGE value="css ler ve temalar ayrıldı" />
     <MESSAGE value="yeni tasarım 2" />
     <MESSAGE value="z. ai deneme" />
@@ -424,6 +440,7 @@
     <MESSAGE value="cancel butonuna basınca seçili sesler sıfırlandı ve bug fix x  butonu yeri güncellendi ++" />
     <MESSAGE value="Optimized rendering performance for saved user sound mixes. Integrated dynamic background artwork matching for custom audio profiles. Fixed intermittent state synchronizations in the sound board grid layout and resolved minor UI layout bugs" />
     <MESSAGE value="ses kesilmesi problemi çözüldü build 20" />
-    <option name="LAST_COMMIT_MESSAGE" value="ses kesilmesi problemi çözüldü build 20" />
+    <MESSAGE value="ios için fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="ios için fix" />
   </component>
 </project>

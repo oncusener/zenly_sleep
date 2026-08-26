@@ -3,7 +3,7 @@ export const SOUNDS = [
         id: 'forest',
         name: 'Forest',
         premium: false,
-        file: require('../assets/sounds/forest.mp3'),
+        file: require('../assets/sounds/forest.m4a'),
         image: require('../assets/pics/forest.png')
     },
     {
@@ -38,7 +38,7 @@ export const SOUNDS = [
         id: 'rain',
         name: 'Rain',
         premium: false,
-        file: require('../assets/sounds/rain.mp3'),
+        file: require('../assets/sounds/rain.m4a'),
         image: require('../assets/pics/rain.png')
     },
 
@@ -53,7 +53,7 @@ export const SOUNDS = [
         id: 'fire',
         name: 'Fireplace',
         premium: false,
-        file: require('../assets/sounds/fire.mp3'),
+        file: require('../assets/sounds/fire.m4a'),
         image: require('../assets/pics/fire.png')
     },
 
@@ -83,7 +83,7 @@ export const SOUNDS = [
         id: 'bus_noise',
         name: 'Bus noise',
         premium: false,
-        file: require('../assets/sounds/bus_noise.mp3'),
+        file: require('../assets/sounds/bus_noise.m4a'),
         image: require('../assets/pics/bus_noise.png')
     },
     {
@@ -97,7 +97,7 @@ export const SOUNDS = [
         id: 'street',
         name: 'Street',
         premium: false,
-        file: require('../assets/sounds/street.mp3'),
+        file: require('../assets/sounds/street.m4a'),
         image: require('../assets/pics/street.png')
 
     },
