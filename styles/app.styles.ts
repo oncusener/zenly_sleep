@@ -1,4 +1,19 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+// Ses karti olculeri. Genislik yine icerigin %48'i; yukseklik ise sabit degil,
+// o genislige oranli hesaplaniyor. Sabit yukseklik (90) telefonda dogruydu ama
+// tablette kart ~470pt'ye uzayinca 5:1'lik seride donusuyor, kare kapak
+// fotografi oturmayip sagda bosluk birakiyordu.
+//
+// aspectRatio stil ozelligi burada ise yaramiyor: yuzde genislik + flexWrap
+// birlesiminde Yoga orani cozemiyor ve kartin tum icerigi absolute oldugu icin
+// yukseklik sifira cokuyor. Bu yuzden deger elle hesaplaniyor.
+//
+// 2.09 = telefondaki mevcut oran (188/90) — telefon gorunumu degismiyor.
+const CARD_RATIO = 2.09;
+const SECTION_PAD = 24;
+const CARD_W = (Dimensions.get('window').width - SECTION_PAD * 2) * 0.48;
+const CARD_H = Math.round(CARD_W / CARD_RATIO);
 
 export const s = StyleSheet.create({
     container:           { flex: 1, backgroundColor: '#0b0e14' },
@@ -12,9 +27,9 @@ export const s = StyleSheet.create({
     sectionLabel:        { color: '#3a3f50', fontSize: 9, fontWeight: '600', letterSpacing: 2, marginBottom: 12 },
     clearAll:            { color: '#454a5e', fontSize: 11 },
 
-    // Sound grid — kart boyutu cover fotoğrafı için taller yapıldı
+    // Sound grid — kart yüksekliği için dosya başındaki CARD_H'ye bak.
     soundGrid:           { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
-    soundCard:           { width: '48%', height: 90, borderRadius: 14, overflow: 'hidden', position: 'relative' },
+    soundCard:           { width: '48%', height: CARD_H, borderRadius: 14, overflow: 'hidden', position: 'relative' },
     soundCardInactive:   { borderWidth: 1, borderColor: '#1e2230' },
     soundCardActive:     { borderWidth: 1.5 },
     soundCardLocked:     { borderWidth: 1, borderColor: '#181a22' },

@@ -19,6 +19,11 @@ import SplashScreen from './SplashScreen';
 const Tab = createBottomTabNavigator();
 const DEFAULT_VOLUME = 0.7;
 
+// Kart kapak gorselleri: absoluteFill'in insetleri tek basina Image'i germiyor,
+// bitmap kendi dogal boyutunda (400pt) ciziliyor. Telefonda kart 188pt oldugu icin
+// tasip gizleniyordu; tablette kart 472pt'ye cikinca sagda bosluk olarak gorundu.
+// Bu yuzden Image stillerinde width/height acikca %100 veriliyor.
+
 const SOUND_COLORS: Record<string, string> = {
     ambient:       '#7ac97a',
     bass:          '#c678dd',
@@ -128,7 +133,7 @@ function SoundCard({
                 {sound.image && (
                     <Image
                         source={sound.image}
-                        style={[StyleSheet.absoluteFill, { borderRadius: 14, opacity: 0.18 }]}
+                        style={[StyleSheet.absoluteFill, { borderRadius: 14, opacity: 0.18, width: '100%', height: '100%' }]}
                         resizeMode="cover"
                     />
                 )}
@@ -152,7 +157,7 @@ function SoundCard({
                 {sound.image && (
                     <Image
                         source={sound.image}
-                        style={[StyleSheet.absoluteFill, { borderRadius: 14, opacity: 0.28 }]}
+                        style={[StyleSheet.absoluteFill, { borderRadius: 14, opacity: 0.28, width: '100%', height: '100%' }]}
                         resizeMode="cover"
                     />
                 )}
@@ -215,7 +220,7 @@ function SoundCard({
             {sound.image && (
                 <Image
                     source={sound.image}
-                    style={[StyleSheet.absoluteFill, { borderRadius: 14, opacity: 0.22 }]}
+                    style={[StyleSheet.absoluteFill, { borderRadius: 14, opacity: 0.22, width: '100%', height: '100%' }]}
                     resizeMode="cover"
                 />
             )}
@@ -377,7 +382,7 @@ function SleepScreen() {
                                             <>
                                                 <Image
                                                     source={mixImage}
-                                                    style={[StyleSheet.absoluteFill, { borderRadius: 22, opacity: isActive ? 0.45 : 0.22 }]}
+                                                    style={[StyleSheet.absoluteFill, { borderRadius: 22, opacity: isActive ? 0.45 : 0.22, width: '100%', height: '100%' }]}
                                                     resizeMode="cover"
                                                 />
                                                 <View style={[StyleSheet.absoluteFill, { borderRadius: 22, backgroundColor: 'rgba(0,0,0,0.25)' }]} />
