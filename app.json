@@ -18,7 +18,8 @@
       "bundleIdentifier": "com.oncusener.zenly.ios",
       "buildNumber": "23",
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "CFBundleDisplayName": "Zenly Sleep"
       }
     },
     "android": {
