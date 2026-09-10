@@ -13,7 +13,7 @@ import AudioProvider from './components/AudioProvider';
 import AdBanner from './components/AdBanner';
 import UpdateGate from './components/UpdateGate';
 import { initConsent } from './utils/consent';
-import { s, m, p } from './styles/app.styles';
+import { s, m } from './styles/app.styles';
 import SplashScreen from './SplashScreen';
 
 const Tab = createBottomTabNavigator();
@@ -85,71 +85,21 @@ function SaveMixModal({
     );
 }
 
-// ── PremiumBanner ─────────────────────────────────────────────────────────────
-
-function PremiumBanner({ onPress }: { onPress: () => void }) {
-    return (
-        <TouchableOpacity style={p.banner} onPress={onPress} activeOpacity={0.85}>
-            <View style={p.bannerIcon}>
-                <Text style={{ fontSize: 16 }}>✦</Text>
-            </View>
-            <View style={p.bannerText}>
-                <Text style={p.bannerTitle}>Unlock all sounds</Text>
-                <Text style={p.bannerSub}>Get access to premium sounds</Text>
-            </View>
-            <View style={p.bannerCta}>
-                <Text style={p.bannerCtaText}>Upgrade →</Text>
-            </View>
-        </TouchableOpacity>
-    );
-}
-
 // ── SoundCard ─────────────────────────────────────────────────────────────────
 
 interface SoundCardProps {
     sound: typeof SOUNDS[number];
     isActive: boolean;
-    isPremiumUser: boolean;
     volume: number;
     onToggle: () => void;
     onVolumeChange: (v: number) => void;
-    onPremiumPress: () => void;
 }
 
 function SoundCard({
-                       sound, isActive, isPremiumUser, volume,
-                       onToggle, onVolumeChange, onPremiumPress,
+                       sound, isActive, volume,
+                       onToggle, onVolumeChange,
                    }: SoundCardProps) {
     const accent = SOUND_COLORS[sound.id] ?? '#98a9ff';
-    const isLocked = sound.premium && !isPremiumUser;
-
-    if (isLocked) {
-        return (
-            <TouchableOpacity
-                style={[s.soundCard, s.soundCardLocked]}
-                onPress={onPremiumPress}
-                activeOpacity={0.7}
-            >
-                {sound.image && (
-                    <Image
-                        source={sound.image}
-                        style={[StyleSheet.absoluteFill, { borderRadius: 14, opacity: 0.18, width: '100%', height: '100%' }]}
-                        resizeMode="cover"
-                    />
-                )}
-                <View style={[StyleSheet.absoluteFill, { borderRadius: 14, backgroundColor: 'rgba(0,0,0,0.55)' }]} />
-                <View style={s.cardBottom}>
-                    <Text style={s.cardNameLocked} numberOfLines={1}>
-                        {sound.name.toUpperCase()}
-                    </Text>
-                    <View style={s.proBadge}>
-                        <View style={s.proDot} />
-                        <Text style={s.proBadgeText}>PRO</Text>
-                    </View>
-                </View>
-            </TouchableOpacity>
-        );
-    }
 
     if (isActive) {
         return (
@@ -245,7 +195,6 @@ function SleepScreen() {
         toggleSound, setVolume, clearAll, loadMix, saveMix, updateMix, deleteMix,
     } = useSoundStore();
 
-    const [isPremiumUser] = useState(false);
     const [sleepTimer, setSleepTimer] = useState(30);
     const [timerActive, setTimerActive] = useState(false);
     const [saveModalVisible, setSaveModalVisible] = useState(false);
@@ -274,17 +223,6 @@ function SleepScreen() {
             return cur !== sav;
         });
     }, [activeSounds, volumes, activeMix]);
-
-    function handlePremiumPress() {
-        Alert.alert(
-            'Unlock Premium',
-            'Get access to all sounds with a premium subscription.',
-            [
-                { text: 'Not now', style: 'cancel' },
-                { text: 'Upgrade', onPress: () => {} },
-            ],
-        );
-    }
 
     function handleMixCardPress(mix: SavedMix) {
         if (activeMixId === mix.id) clearAll();
@@ -433,11 +371,9 @@ function SleepScreen() {
                                 key={sound.id}
                                 sound={sound}
                                 isActive={activeSounds.includes(sound.id)}
-                                isPremiumUser={isPremiumUser}
                                 volume={volumes[sound.id] ?? DEFAULT_VOLUME}
                                 onToggle={() => toggleSound(sound.id)}
                                 onVolumeChange={(v) => setVolume(sound.id, v)}
-                                onPremiumPress={handlePremiumPress}
                             />
                         ))}
                     </View>

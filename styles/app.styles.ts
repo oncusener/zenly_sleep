@@ -32,12 +32,10 @@ export const s = StyleSheet.create({
     soundCard:           { width: '48%', height: CARD_H, borderRadius: 14, overflow: 'hidden', position: 'relative' },
     soundCardInactive:   { borderWidth: 1, borderColor: '#1e2230' },
     soundCardActive:     { borderWidth: 1.5 },
-    soundCardLocked:     { borderWidth: 1, borderColor: '#181a22' },
 
     // Sol-alt köşe içerik (inactive & locked)
     cardBottom:          { position: 'absolute', bottom: 0, left: 0, right: 0, flexDirection: 'row', alignItems: 'center', gap: 6, padding: 10 },
     cardNameInactive:    { color: '#ffffff', fontSize: 10, fontWeight: '600', letterSpacing: 0.5, flex: 1 },
-    cardNameLocked:      { color: '#ffffff55', fontSize: 10, fontWeight: '600', letterSpacing: 0.5, flex: 1 },
 
     // Active card inner layout
     activeInner:         { position: 'absolute', bottom: 0, left: 0, right: 0, padding: 10 },
@@ -50,9 +48,6 @@ export const s = StyleSheet.create({
     // Badges
     freeBadge:           { backgroundColor: 'rgba(18,40,18,0.9)', borderWidth: 1, borderColor: '#1e3a1e', borderRadius: 5, paddingHorizontal: 5, paddingVertical: 2 },
     freeBadgeText:       { color: '#3a7a3a', fontSize: 8, fontWeight: '600', letterSpacing: 0.3 },
-    proBadge:            { backgroundColor: 'rgba(26,20,8,0.92)', borderWidth: 1, borderColor: '#2e2010', borderRadius: 5, paddingHorizontal: 5, paddingVertical: 2, flexDirection: 'row', alignItems: 'center', gap: 3 },
-    proDot:              { width: 5, height: 5, borderRadius: 3, backgroundColor: '#4a3810' },
-    proBadgeText:        { color: '#7a5a20', fontSize: 8, fontWeight: '600', letterSpacing: 0.3 },
 
     // Saved mixes
     mixScroll:           { marginLeft: -24, paddingLeft: 24, marginTop: 4 },
@@ -93,14 +88,4 @@ export const m = StyleSheet.create({
     cancelText: { color: '#454a5e', fontSize: 14 },
     saveBtn:    { flex: 1, padding: 13, borderRadius: 12, backgroundColor: '#151929', borderWidth: 1, borderColor: '#2a3050', alignItems: 'center' },
     saveText:   { color: '#98a9ff', fontSize: 14, fontWeight: '500' },
-});
-
-export const p = StyleSheet.create({
-    banner:        { marginHorizontal: 24, marginTop: 20, backgroundColor: '#100e08', borderWidth: 1, borderColor: '#2a2010', borderRadius: 16, padding: 14, flexDirection: 'row', alignItems: 'center', gap: 12 },
-    bannerIcon:    { width: 36, height: 36, backgroundColor: '#1e1608', borderRadius: 10, alignItems: 'center', justifyContent: 'center' },
-    bannerText:    { flex: 1 },
-    bannerTitle:   { color: '#d4910a', fontSize: 13, fontWeight: '600', marginBottom: 2 },
-    bannerSub:     { color: '#5a4820', fontSize: 10 },
-    bannerCta:     { backgroundColor: '#2a1e08', borderWidth: 1, borderColor: '#3a2a10', borderRadius: 8, paddingHorizontal: 10, paddingVertical: 6 },
-    bannerCtaText: { color: '#e8a020', fontSize: 10, fontWeight: '600' },
 });
