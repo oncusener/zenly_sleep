@@ -16,14 +16,15 @@
       "supportsTablet": true,
       "backgroundColor": "#0D1019",
       "bundleIdentifier": "com.oncusener.zenly.ios",
-      "buildNumber": "25",
+      "buildNumber": "26",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false,
-        "CFBundleDisplayName": "Zenly Sleep"
+        "CFBundleDisplayName": "Zenly Sleep",
+        "NSUserTrackingUsageDescription": "This identifier will be used to deliver personalized ads to you."
       }
     },
     "android": {
-      "versionCode": 23,
+      "versionCode": 24,
       "package": "com.oncusener.zenly",
       "backgroundColor": "#0D1019",
       "adaptiveIcon": {
@@ -55,7 +56,7 @@
       [
         "expo-tracking-transparency",
         {
-          "userTrackingPermission": "Reklamların ilgi alanlarına göre gösterilebilmesi için cihaz tanımlayıcın kullanılır. İzin vermezsen uygulama aynı şekilde çalışır, reklamlar yalnızca kişiselleştirilmez."
+          "userTrackingPermission": "This identifier will be used to deliver personalized ads to you."
         }
       ]
     ]

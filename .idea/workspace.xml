@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e12a4137-4d4b-43f0-88cc-8d06be81656c" name="Changes" comment="ios için fix-1">
+    <list default="true" id="e12a4137-4d4b-43f0-88cc-8d06be81656c" name="Changes" comment="ios için fix-2">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -166,7 +167,10 @@
       <workItem from="1786776427563" duration="9000" />
       <workItem from="1787734074814" duration="31000" />
       <workItem from="1787746301879" duration="1696000" />
-      <workItem from="1787819780386" duration="3259000" />
+      <workItem from="1787819780386" duration="3284000" />
+      <workItem from="1788505405148" duration="21000" />
+      <workItem from="1789639496298" duration="1155000" />
+      <workItem from="1789641923714" duration="73000" />
     </task>
     <task id="LOCAL-00001" summary="ilk calisan sürüm">
       <option name="closed" value="true" />
@@ -400,7 +404,15 @@
       <option name="project" value="LOCAL" />
       <updated>1787746784310</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="ios için fix-2">
+      <option name="closed" value="true" />
+      <created>1787833899568</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1787833899568</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -418,7 +430,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="yeni tasarım 2" />
     <MESSAGE value="z. ai deneme" />
     <MESSAGE value="yeni tasarım +" />
     <MESSAGE value="yeni tasarım ++" />
@@ -443,6 +454,7 @@
     <MESSAGE value="ses kesilmesi problemi çözüldü build 20" />
     <MESSAGE value="ios için fix" />
     <MESSAGE value="ios için fix-1" />
-    <option name="LAST_COMMIT_MESSAGE" value="ios için fix-1" />
+    <MESSAGE value="ios için fix-2" />
+    <option name="LAST_COMMIT_MESSAGE" value="ios için fix-2" />
   </component>
 </project>
