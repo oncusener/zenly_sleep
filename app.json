@@ -16,7 +16,7 @@
       "supportsTablet": true,
       "backgroundColor": "#0D1019",
       "bundleIdentifier": "com.oncusener.zenly.ios",
-      "buildNumber": "28",
+      "buildNumber": "29",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false,
         "CFBundleDisplayName": "Zenly Sleep",
@@ -28,7 +28,7 @@
       }
     },
     "android": {
-      "versionCode": 24,
+      "versionCode": 25,
       "package": "com.oncusener.zenly",
       "backgroundColor": "#0D1019",
       "adaptiveIcon": {
@@ -69,7 +69,21 @@
         {
           "userTrackingPermission": "This identifier will be used to deliver personalized ads to you."
         }
-      ]
+      ],
+      [
+      "expo-build-properties",
+      {
+        "ios": {
+          "deploymentTarget": "15.1"
+        }
+      }
+    ],
+    [
+      "./plugins/withPodMinDeploymentTarget",
+      {
+        "deploymentTarget": "15.1"
+      }
+    ]
     ]
   }
 }
