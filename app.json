@@ -2,7 +2,7 @@
   "expo": {
     "name": "zenly sleep",
     "slug": "zenly",
-    "version": "1.0.20",
+    "version": "1.0.21",
     "newArchEnabled": false,
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -16,10 +16,14 @@
       "supportsTablet": true,
       "backgroundColor": "#0D1019",
       "bundleIdentifier": "com.oncusener.zenly.ios",
-      "buildNumber": "26",
+      "buildNumber": "28",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false,
         "CFBundleDisplayName": "Zenly Sleep",
+        "CFBundleDevelopmentRegion": "en",
+        "CFBundleLocalizations": [
+          "en"
+        ],
         "NSUserTrackingUsageDescription": "This identifier will be used to deliver personalized ads to you."
       }
     },
@@ -41,7 +45,14 @@
       }
     },
     "plugins": [
-      "expo-audio",
+      [
+        "expo-audio",
+        {
+          "microphonePermission": false,
+          "recordAudioAndroid": false,
+          "enableBackgroundPlayback": true
+        }
+      ],
       [
         "react-native-google-mobile-ads",
         {

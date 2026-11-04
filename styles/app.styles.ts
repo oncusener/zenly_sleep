@@ -59,8 +59,8 @@ export const s = StyleSheet.create({
     mixCardAddIcon:      { color: '#3a3f50', fontSize: 22, fontWeight: '300' },
 
     // Timer
-    timerRow:            { flexDirection: 'row', gap: 8, marginBottom: 10 },
-    timerBtn:            { flex: 1, paddingVertical: 8, borderRadius: 8, borderWidth: 1, borderColor: '#1e2230', backgroundColor: '#111318', alignItems: 'center' },
+    timerRow:            { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 10 },
+    timerBtn:            { flexGrow: 1, flexBasis: '30%', paddingVertical: 8, borderRadius: 8, borderWidth: 1, borderColor: '#1e2230', backgroundColor: '#111318', alignItems: 'center' },
     timerBtnActive:      { borderColor: '#98a9ff44', backgroundColor: '#141829' },
     timerBtnText:        { color: '#3a3f50', fontSize: 12, fontWeight: '500' },
     timerBtnTextActive:  { color: '#98a9ff' },

@@ -13,11 +13,43 @@ import AudioProvider from './components/AudioProvider';
 import AdBanner from './components/AdBanner';
 import UpdateGate from './components/UpdateGate';
 import { initConsent } from './utils/consent';
+import { maybeAskForReview } from './utils/review';
+import { useReviewStore } from './stores/reviewStore';
 import { s, m } from './styles/app.styles';
 import SplashScreen from './SplashScreen';
 
 const Tab = createBottomTabNavigator();
 const DEFAULT_VOLUME = 0.7;
+
+// Uyku zamanlayici secenekleri (dakika). 2 ve 8 saat, gece boyu calmasini
+// isteyenler icin: 60 dakika cogu kullanicinin uyku suresinin cok altinda.
+const TIMER_OPTIONS = [15, 30, 45, 60, 120, 480];
+
+// Ses yalnizca sondaki bu surede kisilir, oncesinde tam seviyede calar.
+// Sureye orantili bir fade uzun secimlerde yanlis olurdu: 8 saatlik bir
+// zamanlayicida ses daha 4. saatte yariya inmis olurdu.
+const FADE_TAIL_SECONDS = 120;
+
+/** 15 -> "15m", 120 -> "2h" */
+function timerLabel(minutes: number): string {
+    return minutes < 60 ? `${minutes}m` : `${minutes / 60}h`;
+}
+
+/** Baslatma butonu metni: "Start 30 Minute Fade" / "Start 2 Hour Fade" */
+function timerActionLabel(minutes: number): string {
+    if (minutes < 60) return `Start ${minutes} Minute Fade`;
+    // Sifat olarak tekil: "2 Hour Fade", "8 Hour Fade".
+    return `Start ${minutes / 60} Hour Fade`;
+}
+
+/** Geri sayim: 8 saatlik secimde "480:00" yerine "7:59:58". */
+function countdownLabel(totalSeconds: number): string {
+    const h = Math.floor(totalSeconds / 3600);
+    const mnt = Math.floor((totalSeconds % 3600) / 60);
+    const sec = totalSeconds % 60;
+    const pad = (n: number) => String(n).padStart(2, '0');
+    return h > 0 ? `${h}:${pad(mnt)}:${pad(sec)}` : `${mnt}:${pad(sec)}`;
+}
 
 // Kart kapak gorselleri: absoluteFill'in insetleri tek basina Image'i germiyor,
 // bitmap kendi dogal boyutunda (400pt) ciziliyor. Telefonda kart 188pt oldugu icin
@@ -242,27 +274,43 @@ function SleepScreen() {
             return;
         }
         const totalSeconds = sleepTimer * 60;
+        const fadeTail = Math.min(totalSeconds, FADE_TAIL_SECONDS);
         const startVolumes = { ...volumes };
         const soundsToFade = [...activeSounds];
-        let elapsed = 0;
+
+        // Gecen sure sayacla degil duvar saatiyle olculuyor: uygulama arka
+        // plandayken setInterval duzenli atmayabiliyor, tick saymak uzun
+        // zamanlayicilarda kaymaya yol aciyor.
+        const startedAt = Date.now();
 
         setRemaining(totalSeconds);
         setTimerActive(true);
         if (fadeInterval.current) clearInterval(fadeInterval.current);
 
         fadeInterval.current = setInterval(() => {
-            elapsed += 1;
-            const factor = 1 - elapsed / totalSeconds;
-            soundsToFade.forEach((id) =>
-                setVolume(id, Math.max(0, (startVolumes[id] ?? DEFAULT_VOLUME) * factor)),
-            );
-            setRemaining(totalSeconds - elapsed);
+            const elapsed = Math.round((Date.now() - startedAt) / 1000);
+            const left = Math.max(0, totalSeconds - elapsed);
+
+            // Ses yalnizca son fadeTail saniyede kisilir.
+            if (left <= fadeTail) {
+                const factor = fadeTail > 0 ? left / fadeTail : 0;
+                soundsToFade.forEach((id) =>
+                    setVolume(id, Math.max(0, (startVolumes[id] ?? DEFAULT_VOLUME) * factor)),
+                );
+            }
+
+            setRemaining(left);
             if (elapsed >= totalSeconds) {
                 clearInterval(fadeInterval.current!);
                 fadeInterval.current = null;
                 clearAll();
                 setTimerActive(false);
                 setRemaining(0);
+
+                // Zamanlayicinin sonuna kadar gitmesi = uygulama ise yaradi.
+                // Puanlama istegi icin dogru an burasi.
+                useReviewStore.getState().recordCompletedSession();
+                void maybeAskForReview();
             }
         }, 1000);
     }
@@ -384,7 +432,7 @@ function SleepScreen() {
                 <View style={s.section}>
                     <Text style={s.sectionLabel}>SLEEP TIMER</Text>
                     <View style={s.timerRow}>
-                        {[15, 30, 45, 60].map((min) => (
+                        {TIMER_OPTIONS.map((min) => (
                             <TouchableOpacity
                                 key={min}
                                 style={[s.timerBtn, sleepTimer === min && s.timerBtnActive]}
@@ -392,7 +440,7 @@ function SleepScreen() {
                                 activeOpacity={0.8}
                             >
                                 <Text style={[s.timerBtnText, sleepTimer === min && s.timerBtnTextActive]}>
-                                    {min}m
+                                    {timerLabel(min)}
                                 </Text>
                             </TouchableOpacity>
                         ))}
@@ -405,8 +453,8 @@ function SleepScreen() {
                     >
                         <Text style={s.startBtnText}>
                             {timerActive
-                                ? `Cancel — ${Math.floor(remaining / 60)}:${String(remaining % 60).padStart(2, '0')}`
-                                : `Start ${sleepTimer} Minute Fade`}
+                                ? `Cancel — ${countdownLabel(remaining)}`
+                                : timerActionLabel(sleepTimer)}
                         </Text>
                     </TouchableOpacity>
                     {timerActive && <Text style={s.fadeNote}>AUTOMATIC FADE-OUT ENABLED</Text>}
